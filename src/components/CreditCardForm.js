@@ -9,43 +9,29 @@ export default function CreditCardForm() {
     const [cardCvv, setCardCvv] = React.useState("");
 
     const handleCardNumberChange = (event) => {
-        if (event.target.value.length > 0) {
-            const regex = /^[0-9\b\s]*$/;
-            if (regex.test(event.target.value)) {
-                if (event.target.value.length === 4) {
-                    setCardNumber(event.target.value + " ");
-                } else if (event.target.value.length === 9) {
-                    setCardNumber(event.target.value + " ");
-                } else if (event.target.value.length === 14) {
-                    setCardNumber(event.target.value + " ");
-                }
-            }
-        }
+        const value = event.target.value
+            .replace(/\D/g, "")
+            .replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, "$1 $2 $3 $4")
+            .trim();
+        setCardNumber(value);
     };
 
     const handleCardNameChange = (event) => {
-        setCardName(event.target.value.toUpperCase());
+        const value = event.target.value.toUpperCase();
+        setCardName(value);
     };
 
     const handleCardExpirationChange = (event) => {
-        // only allow numbers and "/"
-        if (event.target.value.length > 0) {
-            const regex = /^[0-9\b\/]*$/;
-            if (regex.test(event.target.value)) {
-                if (event.target.value.length === 2) {
-                    setCardExpiration(event.target.value + "/");
-                }
-            }
-        }
+        const value = event.target.value
+            .replace(/\D/g, "")
+            .replace(/(\d{2})(\d{2})/, "$1/$2")
+            .trim();
+        setCardExpiration(value);
     };
 
     const handleCardCvvChange = (event) => {
-        if (event.target.value.length > 0) {
-            const regex = /^[0-9\b]*$/;
-            if (regex.test(event.target.value)) {
-                setCardCvv(event.target.value);
-            }
-        }
+        const value = event.target.value.replace(/\D/g, "").trim();
+        setCardCvv(value);
     };
 
     const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -53,6 +39,8 @@ export default function CreditCardForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        console.log(cardNumber, cardName, cardExpiration, cardCvv);
 
         if (cardNumber.length <= 0 || cardNumber.length > 19) {
             alert("Número de tarjeta inválido");
@@ -64,8 +52,9 @@ export default function CreditCardForm() {
             return;
         }
 
-        if (cardExpiration.length <= 4) {
+        if (cardExpiration.length < 5 || cardExpiration.length > 7) {
             alert("Fecha de expiración inválida");
+            console.log(cardExpiration);
             return;
         }
 
