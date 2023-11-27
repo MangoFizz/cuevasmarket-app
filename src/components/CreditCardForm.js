@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./CreditCardForm.css";
+import "./Form.css";
 import submitPayment from "../services/submitPayment";
 
 export default function CreditCardForm() {
