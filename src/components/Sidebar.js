@@ -1,40 +1,64 @@
-import React, { useState } from "react";
+import React from "react";
+import {
+    CDBSidebar,
+    CDBSidebarContent,
+    CDBSidebarFooter,
+    CDBSidebarHeader,
+    CDBSidebarMenu,
+    CDBSidebarMenuItem,
+} from "cdbreact";
 import { NavLink } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./Sidebar.css";
 
 const Sidebar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggleSidebar = () => {
-        setIsOpen(!isOpen);
-    };
-
     return (
-        <div
-            className={`d-flex flex-column p-3 bg-light ${
-                isOpen ? "open" : ""
-            }`}
-            style={{ width: "280px" }}
+        <CDBSidebar
+            className="sidebar-fixed"
+            backgroundColor="#fff"
+            textColor="#000"
         >
-            <button onClick={toggleSidebar}>Toggle Sidebar</button>
-            <NavLink
-                to="/catalogo"
-                exact
-                activeClassName="active"
-                className="nav-link"
-            >
-                Catálogo
-            </NavLink>
-            <NavLink
-                to="/pedidos"
-                exact
-                activeClassName="active"
-                className="nav-link"
-            >
-                Pedidos
-            </NavLink>
-        </div>
+            <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
+                <a
+                    href="/"
+                    className="text-decoration-none"
+                    style={{ color: "inherit" }}
+                >
+                    Abarrotes Cuevas
+                </a>
+            </CDBSidebarHeader>
+            <CDBSidebarContent>
+                <CDBSidebarMenu>
+                    <NavLink
+                        exact
+                        to="/catalogo"
+                        activeClassName="activeClicked"
+                        style={{ color: "inherit" }}
+                    >
+                        <CDBSidebarMenuItem icon="table">
+                            Catalogo
+                        </CDBSidebarMenuItem>
+                    </NavLink>
+                    <NavLink
+                        exact
+                        to="/pedidos"
+                        activeClassName="activeClicked"
+                        style={{ color: "inherit" }}
+                    >
+                        <CDBSidebarMenuItem icon="archive">
+                            Pedidos
+                        </CDBSidebarMenuItem>
+                    </NavLink>
+                </CDBSidebarMenu>
+            </CDBSidebarContent>
+            <CDBSidebarFooter style={{ textAlign: "center" }}>
+                <div
+                    style={{
+                        padding: "20px 5px",
+                    }}
+                >
+                    2023
+                </div>
+            </CDBSidebarFooter>
+        </CDBSidebar>
     );
 };
 
