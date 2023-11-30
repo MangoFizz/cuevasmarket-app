@@ -1,29 +1,41 @@
-import axios from "axios";
-
-const API_URL = "http://localhost:8080/api/";
+const API_URL = "http://localhost:2000/";
 
 export default class RequestsService {
   static async get(endpoint) {
-    return axios.get(API_URL + endpoint).then((response) => {
-      return response.data;
-    });
+    const response = await fetch(API_URL + endpoint);
+    const data = await response.json();
+    return data;
   }
 
   static async post(request, endpoint) {
-    return axios.post(API_URL + endpoint, request).then((response) => {
-      return response.data;
+    const response = await fetch(API_URL + endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(request),
     });
+    const data = await response.json();
+    return data;
   }
 
   static async put(request, endpoint) {
-    return axios.put(API_URL + endpoint, request).then((response) => {
-      return response.data;
+    const response = await fetch(API_URL + endpoint, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(request),
     });
+    const data = await response.json();
+    return data;
   }
 
   static async delete(endpoint) {
-    return axios.delete(API_URL + endpoint).then((response) => {
-      return response.data;
+    const response = await fetch(API_URL + endpoint, {
+      method: "DELETE",
     });
+    const data = await response.json();
+    return data;
   }
 }

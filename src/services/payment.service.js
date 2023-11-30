@@ -1,11 +1,6 @@
 import RequestsService from "./requests.service";
 
-export default function SubmitPayment(
-  cardNumber,
-  cardName,
-  cardExpiration,
-  cardCvv,
-) {
+export function SubmitPayment(cardNumber, cardName, cardExpiration, cardCvv) {
   return RequestsService.post(
     {
       cardNumber,
