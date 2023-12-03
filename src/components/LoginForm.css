@@ -1,0 +1,30 @@
+.login-form {
+    margin: 0 auto;
+    text-align: left;
+    opacity: 0.975;
+    max-width: 24rem;
+}
+
+.login-form .logo {
+    width: 100%;
+    margin: auto;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.login-form .logo img {
+    width: 30%;
+}
+
+.login-form .card-body {
+    padding: 30px;
+}
+
+.login-form .card-footer {
+    padding: 20px 30px;
+}
+
+.login-form .error-message {
+    font-size: 0.8rem;
+    width: 60%;
+}

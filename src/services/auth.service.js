@@ -1,22 +1,47 @@
-import RequestsService from "./requests.service";
+import { API_URL } from "../config";
+import RequestsHelper from "../helpers/RequestsHelper";
+import { getLoggedUserToken } from "../helpers/loggedUser";
 
-class AuthService {
-  login(user) {
-    return RequestsService.post(user, "login").then((response) => {
-      if (response.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response));
-      }
-      return response;
-    });
-  }
-
-  logout() {
-    localStorage.removeItem("user");
-  }
-
-  getCurrentUser() {
-    return JSON.parse(localStorage.getItem("user"));
-  }
+export const UserAuthResult = {
+    InvalidCredentials: 0,
+    Success: 1,
+    TooManyAttempts: 2,
+    ServerError: 3,
+    UnknownError: 4,
+    InvalidToken: 5
 }
 
-export default new AuthService();
+export async function authUser(email, password) {
+    const req = new RequestsHelper(API_URL);
+    const response = await req.post("auth/login", { email, password });
+    let status = response.statusCode;
+    switch(status) {
+        case 200:
+            return { result: UserAuthResult.Success, data: response.data };
+
+        case 401:
+            return { result: UserAuthResult.InvalidCredentials };
+
+        case 500:
+            return { result: UserAuthResult.ServerError };
+        
+        default:
+            return { result: UserAuthResult.UnknownError };
+    }
+}
+
+export async function verifyUserAuth() {
+    const req = new RequestsHelper(API_URL);
+    const response = await req.get("auth/verify", getLoggedUserToken());
+    let status = response.statusCode;
+    switch(status) {
+        case 200:
+            return { result: UserAuthResult.Success };
+
+        case 401:
+            return { result: UserAuthResult.InvalidToken };
+
+        default:
+            return { result: UserAuthResult.UnknownError };
+    }
+}

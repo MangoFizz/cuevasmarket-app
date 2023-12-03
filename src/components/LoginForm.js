@@ -1,0 +1,97 @@
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserAuthResult, authUser } from "../services/auth.service";
+import { Card, Form } from "react-bootstrap";
+import { strings } from "../localization";
+import "./LoginForm.css";
+
+const LoginForm = ({ onSuccessCallback }) => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [formError, setFormError] = useState("")
+    const [passwordVisible, setPasswordVisible] = useState(false)
+    const [emailInputIsInvalid, setEmailInputIsInvalid] = useState(false)
+    const [passwordInputIsInvalid, setPasswordInputIsInvalid] = useState(false)
+
+    const checkFormFields = () => {
+        setFormError("");
+        setEmailInputIsInvalid(false);
+        setPasswordInputIsInvalid(false);
+        if(email === "") {
+            setFormError(strings.loginForm.emailRequired);
+            setEmailInputIsInvalid(true);
+            return;
+        }
+        if(!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+            setFormError(strings.loginForm.emailInvalid);
+            setEmailInputIsInvalid(true);
+            return;
+        }
+        if(password === "") {
+            setFormError(strings.loginForm.passwordRequired);
+            setPasswordInputIsInvalid(true);
+            return;
+        }
+        logIn();
+    }
+
+    const logIn = () => {
+        authUser(email, password).then(async r => {
+            switch(r.result) {
+                case UserAuthResult.Success: {
+                    setFormError("OK");
+                    onSuccessCallback(r.data);
+                    break;
+                }
+                case UserAuthResult.InvalidCredentials: {
+                    setFormError(strings.loginForm.invalidCredentials);
+                    break;
+                }
+                case UserAuthResult.TooManyAttempts: {
+                    setFormError(strings.loginForm.tooManyAttempts);
+                    break;
+                }
+                default: {
+                    setFormError(strings.common.unknownError);
+                    break;
+                }
+            }
+        })
+    }
+
+    return (
+        <div className="d-flex align-items-center justify-content-center vh-100">
+            <form>
+                <div className="card mx-auto login-form shadow-lg">
+                    <div className="card-body">
+                        <div className="logo">
+                            <img src={"images/logo.png"} alt="" />
+                            <h4>Cuevas Market</h4>
+                            <span>{strings.loginForm.header}</span>
+                        </div>
+                        <div className="mb-3">
+                            <label for="input-email" className="form-label">{strings.loginForm.emailLabel}</label>
+                            <input type="email" className={!emailInputIsInvalid ? "form-control" : "form-control is-invalid"} id="input-email" value={email} onChange={ev => setEmail(ev.target.value)}/>
+                        </div>
+                        <div className="mb-3">
+                            <label for="input-password" className="form-label">{strings.loginForm.passwordLabel}</label>
+                            <div className="input-group">
+                                <input type={passwordVisible ? "text" : "password"} className={!passwordInputIsInvalid ? "form-control" : "form-control is-invalid"} id="input-password" value={password} onChange={ev => setPassword(ev.target.value)}/>
+                                <span className="input-group-text" onClick={() => setPasswordVisible(!passwordVisible)} style={{cursor: "pointer"}}>
+                                    <i className={!passwordVisible ? "bi bi-eye" : "bi bi-eye-slash"} id="togglePassword"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="card-footer d-flex flex-row-reverse align-items-center justify-content-between">
+                        <button type="button" className="btn btn-primary" onClick={checkFormFields}>{strings.loginForm.submitButtonLabel}</button>
+                        <span className="error-message text-danger card-text">{formError}</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    );
+}
+
+export default LoginForm;
