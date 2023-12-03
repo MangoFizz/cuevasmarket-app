@@ -3,7 +3,15 @@ const es = {
     locale: "es-MX",
     strings: {
         common: {
-            unknownError: "Ha ocurrido un error desconocido.",
+            unknownError: "Ha ocurrido un error desconocido."
+        },
+
+        navbar: {
+            home: "Inicio",
+            about: "Acerca de",
+            contact: "Contacto",
+            login: "Iniciar sesión",
+            logout: "Cerrar sesión"
         },
 
         loginForm: {

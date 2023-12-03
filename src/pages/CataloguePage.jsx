@@ -1,8 +1,9 @@
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
-const Home = () => {
+const CataloguePage = () => {
     let navigate = useNavigate();
 
     // useEffect(() => {
@@ -22,10 +23,10 @@ const Home = () => {
     // }, [navigate]);
 
     return (
-        <div>
-            <h1>CASA</h1>
-        </div>
+        <>
+            <Navbar />
+        </>
     );
 }
 
-export default Home;
+export default CataloguePage;

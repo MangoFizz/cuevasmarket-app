@@ -1,7 +1,12 @@
 import Cookies from "js-cookie";
 
 export function setLoggedUser(user) {
-    Cookies.set("user", JSON.stringify(user));
+    if (user) {
+        Cookies.set("user", JSON.stringify(user));
+    }
+    else {
+        Cookies.remove("user");
+    }
 }
 
 export function isUserLogged() {
@@ -9,7 +14,11 @@ export function isUserLogged() {
 }
 
 export function getLoggedUser() {
-    return JSON.parse(Cookies.get("user"));
+    let user = Cookies.get("user");
+    if (user) {
+        return JSON.parse(user);
+    }
+    return null;
 }
 
 export function getLoggedUserType() {
@@ -24,8 +33,8 @@ export function getLoggedUserEmail() {
     return getLoggedUser()?.email;
 }
 
-export function getLoggedUserFirstName() {
-    return getLoggedUser()?.firstName;
+export function getLoggedUserName() {
+    return getLoggedUser()?.name;
 }
 
 export function getLoggedUserLastName() {
