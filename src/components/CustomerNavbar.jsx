@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { getLoggedUser, getLoggedUserName, isUserLogged, setLoggedUser } from '../helpers/loggedUser';
 import { strings } from '../localization';
-import './Navbar.css';
+import './CustomerNavbar.css';
 
 const Navbar = () => {
     const [loggedIn, setLoggedIn] = useState(false);

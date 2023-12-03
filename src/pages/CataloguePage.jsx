@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import CustomerNavbar from "../components/CustomerNavbar";
 
 const CataloguePage = () => {
     let navigate = useNavigate();
@@ -24,7 +24,7 @@ const CataloguePage = () => {
 
     return (
         <>
-            <Navbar />
+            <CustomerNavbar />
         </>
     );
 }
