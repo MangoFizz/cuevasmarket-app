@@ -8,6 +8,54 @@ export default function CreditCardForm() {
   const [cardName, setCardName] = React.useState("");
   const [cardExpiration, setCardExpiration] = React.useState("");
   const [cardCvv, setCardCvv] = React.useState("");
+  const [isLuhnValid, setIsLuhnValid] = React.useState(false);
+  const [isExpirationValid, setIsExpirationValid] = React.useState(false);
+
+  const isLuhn = (value) => {
+    var inputNum = value.replace(/\D/g, "");
+    var sum = 0;
+    var numDigits = inputNum.length;
+
+    for (var i = 0; i < numDigits; i++) {
+      var digit = parseInt(inputNum.charAt(i));
+
+      if (i % 2 === 0) {
+        digit *= 2;
+        if (digit > 9) {
+          digit -= 9;
+        }
+      }
+
+      sum += digit;
+    }
+
+    return sum % 10 === 0;
+  };
+
+  const isValidExpiration = (value) => {
+    value = value.replace(/\D/g, "");
+    //date must be 4 characters long
+    if (value.length !== 4) {
+      return false;
+    }
+    var month = parseInt(value.substring(0, 2));
+    console.log(month);
+    //month must be between 1 and 12
+    if (month < 1 || month > 12) {
+      return false;
+    }
+    var year = parseInt(value.substring(2, 4));
+    console.log(year);
+    //date must be in the future
+    var now = new Date();
+    var currentYear = now.getFullYear() % 100;
+    var currentMonth = now.getMonth() + 1;
+    if (year < currentYear || (year === currentYear && month < currentMonth)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   const handleCardNumberChange = (event) => {
     const value = event.target.value
@@ -15,6 +63,8 @@ export default function CreditCardForm() {
       .replace(/(\d{4})(\d{4})?(\d{4})?(\d{4})?/, "$1 $2 $3 $4")
       .trim();
     setCardNumber(value);
+    setIsLuhnValid(isLuhn(value));
+    console.log(isLuhnValid);
   };
 
   const handleCardNameChange = (event) => {
@@ -30,6 +80,7 @@ export default function CreditCardForm() {
       })
       .trim();
     setCardExpiration(value);
+    setIsExpirationValid(isValidExpiration(value));
   };
 
   const handleCardCvvChange = (event) => {
@@ -45,7 +96,7 @@ export default function CreditCardForm() {
 
     console.log(cardNumber, cardName, cardExpiration, cardCvv);
 
-    if (cardNumber.length <= 0 || cardNumber.length > 19) {
+    if (cardNumber.length <= 0 || cardNumber.length > 19 || !isLuhnValid) {
       alert("Número de tarjeta inválido");
       return;
     }
@@ -55,7 +106,11 @@ export default function CreditCardForm() {
       return;
     }
 
-    if (cardExpiration.length < 5 || cardExpiration.length > 7) {
+    if (
+      cardExpiration.length < 5 ||
+      cardExpiration.length > 7 ||
+      !isExpirationValid
+    ) {
       alert("Fecha de expiración inválida");
       console.log(cardExpiration);
       return;
@@ -98,7 +153,7 @@ export default function CreditCardForm() {
           value={cardNumber}
           aria-describedby="cardNumberHelp"
           placeholder="0000 0000 0000 0000"
-          className="form-control"
+          className={`form-control ${isLuhnValid ? "is-valid" : "is-invalid"}`}
           onChange={handleCardNumberChange}
           maxLength="19"
         />
@@ -131,7 +186,9 @@ export default function CreditCardForm() {
           value={cardExpiration}
           aria-describedby="cardExpirationHelp"
           placeholder="MM/AA"
-          className="form-control"
+          className={`form-control ${
+            isExpirationValid ? "is-valid" : "is-invalid"
+          }`}
           onChange={handleCardExpirationChange}
           maxLength="5"
         />
