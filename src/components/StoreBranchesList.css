@@ -29,3 +29,8 @@
 .store-branch-options button {
     margin-right: 4px;
 }
+
+.card-store-branch-detail {
+    margin-top: 0.4rem;
+    margin-right: 12px;
+}

@@ -40,15 +40,23 @@ const es = {
             header: "Administración de sucursales",
         },
 
-        newStoreBranchForm: {
+        storeBranchForm: {
             header: "Nueva sucursal",
             nameLabel: "Nombre",
             addressLabel: "Dirección",
             submitButtonLabel: "Registrar",
             nameRequired: "Por favor, ingrese el nombre de la sucursal.",
+            nameTooShort: "El nombre de la sucursal es demasiado corto.",
+            nameTooLong: "El nombre de la sucursal es demasiado largo.",
             addressRequired: "Por favor, ingrese la dirección de la sucursal.",
+            openingTimeLabel: "Hora de apertura",
+            openingTimeRequired: "Por favor, ingrese la hora de apertura de la sucursal.",
+            closingTimeLabel: "Hora de cierre",
+            closingTimeRequired: "Por favor, ingrese la hora de cierre de la sucursal.",
             storeBranchRegistered: "Sucursal registrada.",
             storeBranchNotRegistered: "No se pudo registrar la sucursal.",
+            registerButton: "Registrar",
+            cancelButton: "Cancelar",
         }
     }
 }

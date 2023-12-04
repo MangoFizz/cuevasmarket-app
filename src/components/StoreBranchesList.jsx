@@ -15,12 +15,12 @@ const StoreBranchesList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
-    const eventsPerPage = 10;
+    const branchesPerPage = 10;
     const navigate = useNavigate();
 
     const fetchSearchResults = async (searchQuery, page) => {
         try {
-            let r = await searchStoreBranches(searchQuery, eventsPerPage, page);
+            let r = await searchStoreBranches(searchQuery, branchesPerPage, page);
 
             switch(r.result) {
                 case StoreBranchesSearchResult.Success: {
@@ -78,11 +78,11 @@ const StoreBranchesList = () => {
         fetchSearchResults(searchQuery, page);
     }
 
-    const handleRegisterEventButton = () => {
-        navigate("/register-event");
+    const handleRegisterBranchButton = () => {
+        navigate("/registrar-sucursal");
     }
 
-    const handleEventCardClick = (eventId) => {
+    const handleBranchCardClick = (eventId) => {
         navigate(`/event/${eventId}`);
     }
 
@@ -101,7 +101,7 @@ const StoreBranchesList = () => {
                         <input type="search" id="form1" className="form-control" placeholder={strings.storeBranchesList.searchBarPlaceholder} aria-label="Search" onChange={handleSearchInputChange} onKeyDownCapture={handleSearchInputKeyDown} />
                         <span className="input-group-text" id="search"><i className="bi bi-search"></i></span>
                     </div>
-                    <button type="button" class="btn btn-success text-nowrap" onClick={handleRegisterEventButton}>{strings.storeBranchesList.registerNewStoreBranch}</button>
+                    <button type="button" class="btn btn-success text-nowrap" onClick={handleRegisterBranchButton}>{strings.storeBranchesList.registerNewStoreBranch}</button>
                 </div>
 
                 <GoogleMapsWrapper>
@@ -118,15 +118,21 @@ const StoreBranchesList = () => {
                         return (
                             <div className="card store-branch-card" key={storeBranch.id}>
                                 <div className="card-body">
-                                    <div className="d-flex flex-wrap justify-content-between">
+                                    <div className="d-flex justify-content-between">
                                         <div className="d-flex flex-column justify-content-between">
-                                            <h5 className="card-title">{storeBranch.name}</h5>
-                                            <p className="card-text">{storeBranch.address + ", " + storeBranch.city}</p>
-                                            <div className="d-flex flex-wrap justify-content-between card-event-details">
+                                            <div>
+                                                <h5 className="card-title">{storeBranch.name}</h5>
+                                                <p className="card-text">{storeBranch.address + ", " + storeBranch.city}</p>
                                                 <div className="d-flex flex-wrap">
-                                                    <div className="card-event-detail">
-                                                        <i className="bi bi-clock"></i>
-                                                        <span> {openingHours + " hrs - " + closingHours + " hrs"}</span>
+                                                    <div className="d-flex flex-wrap">
+                                                        <div className="card-store-branch-detail">
+                                                            <i className="bi bi-door-open"></i>
+                                                            <span> {openingHours + " hrs"}</span>
+                                                        </div>
+                                                        <div className="card-store-branch-detail">
+                                                            <i className="bi bi-door-closed"></i>
+                                                            <span> {closingHours + " hrs"}</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -137,7 +143,7 @@ const StoreBranchesList = () => {
                                         </div>
                                         <GoogleMaps mapId="map_id" locations={locations} className={"branchLocationMap"} />
                                     </div>
-                                    {/* <a href="#!" className="stretched-link" onClick={() => handleEventCardClick(storeBranch.id)}></a> */}
+                                    {/* <a href="#!" className="stretched-link" onClick={() => handleBranchCardClick(storeBranch.id)}></a> */}
                                 </div>
                             </div>
                         )
