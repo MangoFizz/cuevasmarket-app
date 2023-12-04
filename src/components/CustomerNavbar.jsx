@@ -37,7 +37,7 @@ const Navbar = () => {
             <div className="container-fluid">
                 <a className="navbar-brand" href="#!">
                     <img alt="Mango icon" src={"images/logo.png"} width="30" height="30" className="d-inline-block align-top"/>
-                    <span>CuevasMarket</span>
+                    <span>Abarrotes Cuevas</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

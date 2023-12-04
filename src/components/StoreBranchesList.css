@@ -1,0 +1,31 @@
+
+.search-bar {
+    margin-right: 10px;
+}
+
+.store-branches-options-bar {
+    margin-bottom: 12px;
+}
+
+.store-branch-card {
+    text-align: left;
+    margin-bottom: 12px;
+}
+
+.store-branch-card .card-text {
+    margin-bottom: 0;
+}
+
+.branchLocationMap {
+    width: 30% !important;
+    height: 150px !important;
+    margin-bottom: 12px;
+}
+
+.store-branch-options {
+    margin-top: 12px;
+}
+
+.store-branch-options button {
+    margin-right: 4px;
+}

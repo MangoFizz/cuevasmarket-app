@@ -14,16 +14,41 @@ const es = {
             logout: "Cerrar sesión"
         },
 
+        adminSidebar: {
+            storeBranches: "Sucursales",
+            products: "Productos",
+        },
+
         loginForm: {
             header: "INICIAR SESIÓN",
-            emailLabel: "Correo electrónico",
+            usernameLabel: "Nombre de usuario",
             passwordLabel: "Contraseña",
             submitButtonLabel: "Iniciar sesión",
-            emailRequired: "Por favor, ingrese su dirección de correo electrónico.",
-            emailInvalid: "Por favor, ingrese una dirección de correo electrónico válida.",
+            usernameRequired: "Por favor, ingrese su número de teléfono.",
+            usernameInvalid: "Por favor, ingrese un número de teléfono válida.",
             passwordRequired: "Por favor, ingrese su contraseña.",
             invalidCredentials: "Credenciales no válidas.",
             tooManyAttempts: "Demasiados intentos. Por favor, inténtelo de nuevo más tarde."
+        },
+
+        storeBranchesList: {
+            registerNewStoreBranch: "Nueva sucursal",
+            searchBarPlaceholder: "Buscar sucursal...",
+        },
+
+        storeBranchesManagement: {
+            header: "Administración de sucursales",
+        },
+
+        newStoreBranchForm: {
+            header: "Nueva sucursal",
+            nameLabel: "Nombre",
+            addressLabel: "Dirección",
+            submitButtonLabel: "Registrar",
+            nameRequired: "Por favor, ingrese el nombre de la sucursal.",
+            addressRequired: "Por favor, ingrese la dirección de la sucursal.",
+            storeBranchRegistered: "Sucursal registrada.",
+            storeBranchNotRegistered: "No se pudo registrar la sucursal.",
         }
     }
 }

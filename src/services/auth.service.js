@@ -11,9 +11,9 @@ export const UserAuthResult = {
     InvalidToken: 5
 }
 
-export async function authUser(email, password) {
+export async function authUser(username, password) {
     const req = new RequestsHelper(API_URL);
-    const response = await req.post("auth/login", { email, password });
+    const response = await req.post("auth/login", { username, password });
     let status = response.statusCode;
     switch(status) {
         case 200:

@@ -7,25 +7,25 @@ import { strings } from "../localization";
 import "./LoginForm.css";
 
 const LoginForm = ({ onSuccessCallback }) => {
-    const [email, setEmail] = useState("")
+    const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [formError, setFormError] = useState("")
     const [passwordVisible, setPasswordVisible] = useState(false)
-    const [emailInputIsInvalid, setEmailInputIsInvalid] = useState(false)
+    const [usernameInputIsInvalid, setUsernameInputIsInvalid] = useState(false)
     const [passwordInputIsInvalid, setPasswordInputIsInvalid] = useState(false)
 
     const checkFormFields = () => {
         setFormError("");
-        setEmailInputIsInvalid(false);
+        setUsernameInputIsInvalid(false);
         setPasswordInputIsInvalid(false);
-        if(email === "") {
-            setFormError(strings.loginForm.emailRequired);
-            setEmailInputIsInvalid(true);
+        if(username === "") {
+            setFormError(strings.loginForm.usernameRequired);
+            setUsernameInputIsInvalid(true);
             return;
         }
-        if(!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-            setFormError(strings.loginForm.emailInvalid);
-            setEmailInputIsInvalid(true);
+        if(username.length < 4) {
+            setFormError(strings.loginForm.usernameInvalid);
+            setUsernameInputIsInvalid(true);
             return;
         }
         if(password === "") {
@@ -37,7 +37,7 @@ const LoginForm = ({ onSuccessCallback }) => {
     }
 
     const logIn = () => {
-        authUser(email, password).then(async r => {
+        authUser(username, password).then(async r => {
             switch(r.result) {
                 case UserAuthResult.Success: {
                     setFormError("OK");
@@ -67,12 +67,12 @@ const LoginForm = ({ onSuccessCallback }) => {
                     <div className="card-body">
                         <div className="logo">
                             <img src={"images/logo.png"} alt="" />
-                            <h4>Cuevas Market</h4>
+                            <h4>Abarrotes Cuevas</h4>
                             <span>{strings.loginForm.header}</span>
                         </div>
                         <div className="mb-3">
-                            <label for="input-email" className="form-label">{strings.loginForm.emailLabel}</label>
-                            <input type="email" className={!emailInputIsInvalid ? "form-control" : "form-control is-invalid"} id="input-email" value={email} onChange={ev => setEmail(ev.target.value)}/>
+                            <label for="input-username" className="form-label">{strings.loginForm.usernameLabel}</label>
+                            <input type="username" className={!usernameInputIsInvalid ? "form-control" : "form-control is-invalid"} id="input-username" value={username} onChange={ev => setUsername(ev.target.value)}/>
                         </div>
                         <div className="mb-3">
                             <label for="input-password" className="form-label">{strings.loginForm.passwordLabel}</label>
