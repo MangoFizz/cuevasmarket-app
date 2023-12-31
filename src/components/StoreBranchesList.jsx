@@ -122,7 +122,7 @@ const StoreBranchesList = () => {
                                         <div className="d-flex flex-column justify-content-between">
                                             <div>
                                                 <h5 className="card-title">{storeBranch.name}</h5>
-                                                <p className="card-text">{storeBranch.address + ", " + storeBranch.city}</p>
+                                                <p className="card-text">{storeBranch.address}</p>
                                                 <div className="d-flex flex-wrap">
                                                     <div className="d-flex flex-wrap">
                                                         <div className="card-store-branch-detail">

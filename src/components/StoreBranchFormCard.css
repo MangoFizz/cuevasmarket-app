@@ -7,3 +7,7 @@
 .store-branch-form-card form {
     text-align: left;
 }
+
+.form-button-bar button {
+    margin-left: 0.4rem;
+}
