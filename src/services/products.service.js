@@ -2,7 +2,7 @@ import RequestsService from "./requests.service";
 
 export default class ProductsService {
   static async getProducts() {
-    return RequestsService.get("products");
+    return RequestsService.get("products/search/");
   }
 
   static async getProduct(id) {
