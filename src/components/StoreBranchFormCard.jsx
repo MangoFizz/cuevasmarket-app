@@ -62,7 +62,7 @@ const StoreBranchFormCard = ({ storeBranchId = null }) => {
     }
 
     const handleCancelButton = () => {
-        navigate("/sucursales");
+        navigate("/admin/sucursales");
     }
 
     const registerBranch = async () => {
