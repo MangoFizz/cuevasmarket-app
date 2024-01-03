@@ -10,7 +10,7 @@ const ProductList = (props) => {
   React.useEffect(() => {
     ProductsService.getProducts()
       .then((response) => {
-        setProducts(response);
+        setProducts(response.data);
       })
       .catch((error) => {
         console.error("Failed to fetch products:", error);
