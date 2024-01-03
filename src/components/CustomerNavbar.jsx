@@ -39,13 +39,13 @@ const Navbar = () => {
                     <img alt="Mango icon" src={"images/logo.png"} width="30" height="30" className="d-inline-block align-top"/>
                     <span>Abarrotes Cuevas</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/">{strings.navbar.home}</a>
+                <div className="collapse navbar-collapse" id="mainNavbar">
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                            <a className="nav-link" aria-current="page" href="/">{strings.navbar.home}</a>
                         </li>
                     </ul>
                     {loggedIn ? <span className="navbar-text navbar-user-name">{loggedUserData.name}</span> : null}

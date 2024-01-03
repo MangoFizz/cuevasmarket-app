@@ -69,7 +69,7 @@ const StoreBranchFormCard = ({ storeBranchId = null }) => {
         let registerResult = await registerStoreBranch(name, address.formatted_address, address.geometry.location.lat(), address.geometry.location.lng(), openingHours, closingHours);
         switch(registerResult.result) {
             case StoreBranchesSearchResult.Success: {
-                navigate("/sucursales");
+                navigate("/admin/sucursales");
                 return;
             }
             case StoreBranchesSearchResult.RequestError: {

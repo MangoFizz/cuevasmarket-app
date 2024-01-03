@@ -27,7 +27,7 @@ const LoginPage = () => {
                     break;
                 }
                 case "admin": {
-                    navigate("/admin");
+                    navigate("/admin/sucursales");
                     break;
                 }
             }

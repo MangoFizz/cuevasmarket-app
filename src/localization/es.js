@@ -17,6 +17,7 @@ const es = {
         adminSidebar: {
             storeBranches: "Sucursales",
             products: "Productos",
+            users: "Usuarios",
         },
 
         loginForm: {

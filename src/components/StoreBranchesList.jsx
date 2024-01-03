@@ -79,7 +79,7 @@ const StoreBranchesList = () => {
     }
 
     const handleRegisterBranchButton = () => {
-        navigate("/registrar-sucursal");
+        navigate("/admin/registrar-sucursal");
     }
 
     const handleBranchCardClick = (eventId) => {
@@ -101,7 +101,7 @@ const StoreBranchesList = () => {
                         <input type="search" id="form1" className="form-control" placeholder={strings.storeBranchesList.searchBarPlaceholder} aria-label="Search" onChange={handleSearchInputChange} onKeyDownCapture={handleSearchInputKeyDown} />
                         <span className="input-group-text" id="search"><i className="bi bi-search"></i></span>
                     </div>
-                    <button type="button" class="btn btn-success text-nowrap" onClick={handleRegisterBranchButton}>{strings.storeBranchesList.registerNewStoreBranch}</button>
+                    <button type="button" className="btn btn-success text-nowrap" onClick={handleRegisterBranchButton}>{strings.storeBranchesList.registerNewStoreBranch}</button>
                 </div>
 
                 <GoogleMapsWrapper>

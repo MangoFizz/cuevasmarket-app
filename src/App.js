@@ -14,8 +14,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<CataloguePage />} />
                     <Route path="/login" element={<LoginPage/>} />
-                    <Route path="/sucursales" element={<StoreBranchesManagement />} />
-                    <Route path="/registrar-sucursal" element={<RegisterStoreBranch />} />
+                    <Route path="/admin/sucursales" element={<StoreBranchesManagement />} />
+                    <Route path="/admin/registrar-sucursal" element={<RegisterStoreBranch />} />
                 </Routes>
             </BrowserRouter>
         </div>

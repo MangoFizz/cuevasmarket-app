@@ -14,14 +14,19 @@ const AdminSidebar = () => {
             </CDBSidebarHeader>
             <CDBSidebarContent>
                 <CDBSidebarMenu>
-                    <NavLink exact to="/sucursales" activeClassName="activeClicked" style={{ color: "inherit" }}>
+                    <NavLink exact to="/admin/sucursales" activeClassName="activeClicked" style={{ color: "inherit" }}>
                         <CDBSidebarMenuItem icon="table">
                             {strings.adminSidebar.storeBranches}
                         </CDBSidebarMenuItem>
                     </NavLink>
-                    <NavLink exact to="/pedidos" activeClassName="activeClicked" style={{ color: "inherit" }}>
+                    <NavLink exact to="/admin/pedidos" activeClassName="activeClicked" style={{ color: "inherit" }}>
                         <CDBSidebarMenuItem icon="archive">
                             {strings.adminSidebar.products}
+                        </CDBSidebarMenuItem>
+                    </NavLink>
+                    <NavLink exact to="/admin/usuarios" activeClassName="activeClicked" style={{ color: "inherit" }}>
+                        <CDBSidebarMenuItem icon="users">
+                            {strings.adminSidebar.users}
                         </CDBSidebarMenuItem>
                     </NavLink>
                 </CDBSidebarMenu>
