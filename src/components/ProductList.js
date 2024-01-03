@@ -28,7 +28,7 @@ const ProductList = (props) => {
         <div className="row">
           {products && products.length ? (
             products.map((product) => (
-              <div className="col-md-6" key={product.id}>
+              <div className="col-md-4" key={product.id}>
                 <ProductItem product={product} />
               </div>
             ))
