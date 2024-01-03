@@ -18,6 +18,7 @@ const es = {
             storeBranches: "Sucursales",
             products: "Productos",
             users: "Usuarios",
+            signOut: "Cerrar sesión"
         },
 
         loginForm: {
