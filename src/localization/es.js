@@ -36,6 +36,7 @@ const es = {
         storeBranchesList: {
             registerNewStoreBranch: "Nueva sucursal",
             searchBarPlaceholder: "Buscar sucursal...",
+            noResults: "No se encontraron resultados",
         },
 
         storeBranchesManagement: {
@@ -44,6 +45,7 @@ const es = {
 
         storeBranchForm: {
             header: "Nueva sucursal",
+            altHeader: "Editar sucursal",
             nameLabel: "Nombre",
             addressLabel: "Dirección",
             submitButtonLabel: "Registrar",
@@ -57,8 +59,9 @@ const es = {
             closingTimeRequired: "Por favor, ingrese la hora de cierre de la sucursal.",
             storeBranchRegistered: "Sucursal registrada.",
             storeBranchNotRegistered: "No se pudo registrar la sucursal.",
-            registerButton: "Registrar",
+            registerButton: "Aceptar",
             cancelButton: "Cancelar",
+            alreadyExists: "Ya existe una sucursal con ese nombre."
         }
     }
 }

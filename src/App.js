@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import StoreBranchesManagement from './pages/StoreBranchesManagement';
 import StoreBranchForm from './components/StoreBranchFormCard';
 import RegisterStoreBranch from './pages/RegisterStoreBranch';
+import ModifyStoreBranch from './pages/ModifyStoreBranch';
 
 function App() {
     return (
@@ -15,7 +16,8 @@ function App() {
                     <Route path="/" element={<CataloguePage />} />
                     <Route path="/login" element={<LoginPage/>} />
                     <Route path="/admin/sucursales" element={<StoreBranchesManagement />} />
-                    <Route path="/admin/registrar-sucursal" element={<RegisterStoreBranch />} />
+                    <Route path="/admin/sucursales/registrar" element={<RegisterStoreBranch />} />
+                    <Route path="/admin/sucursales/editar/:storeBranchId" element={<ModifyStoreBranch />} />
                 </Routes>
             </BrowserRouter>
         </div>

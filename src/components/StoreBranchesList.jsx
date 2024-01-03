@@ -15,7 +15,7 @@ const StoreBranchesList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
-    const branchesPerPage = 10;
+    const branchesPerPage = 5;
     const navigate = useNavigate();
 
     const fetchSearchResults = async (searchQuery, page) => {
@@ -79,11 +79,7 @@ const StoreBranchesList = () => {
     }
 
     const handleRegisterBranchButton = () => {
-        navigate("/admin/registrar-sucursal");
-    }
-
-    const handleBranchCardClick = (eventId) => {
-        navigate(`/event/${eventId}`);
+        navigate("registrar");
     }
 
     const handleSearchInputKeyDown = (event) => {
@@ -93,13 +89,18 @@ const StoreBranchesList = () => {
         }
     }
 
+    const handleSearchButtonClick = () => {
+        setCurrentPage(1);
+        fetchSearchResults(searchQuery, 1);
+    }
+
     return (
         <div className="d-flex">
             <div className="content flex-fill">
                 <div className="d-flex store-branches-options-bar">
                     <div className="input-group search-bar">
                         <input type="search" id="form1" className="form-control" placeholder={strings.storeBranchesList.searchBarPlaceholder} aria-label="Search" onChange={handleSearchInputChange} onKeyDownCapture={handleSearchInputKeyDown} />
-                        <span className="input-group-text" id="search"><i className="bi bi-search"></i></span>
+                        <span className="input-group-text" id="search" onClick={handleSearchButtonClick} style={{ cursor: "pointer" }}><i className="bi bi-search"></i></span>
                     </div>
                     <button type="button" className="btn btn-success text-nowrap" onClick={handleRegisterBranchButton}>{strings.storeBranchesList.registerNewStoreBranch}</button>
                 </div>
@@ -137,7 +138,7 @@ const StoreBranchesList = () => {
                                                 </div>
                                             </div>
                                             <div className="store-branch-options">
-                                                <Button variant="primary">Editar</Button>
+                                                <Button variant="primary" onClick={() => { navigate(`editar/${storeBranch.id}`) }} >Editar</Button>
                                                 <Button variant="danger">Eliminar</Button>
                                             </div>
                                         </div>
@@ -150,6 +151,8 @@ const StoreBranchesList = () => {
                     })}
 
                 </GoogleMapsWrapper>
+
+                {searchResults.length === 0 ? <h5 style={{ textAlign: "center" }} className="mb-3">{strings.storeBranchesList.noResults}</h5> : null}
 
                 <nav aria-label="Page navigation" className="navigation">
                     <ul className="pagination justify-content-center">

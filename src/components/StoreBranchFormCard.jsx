@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie';
 import { strings } from "../localization";
 import { Button, Card, Form } from "react-bootstrap";
-import "./StoreBranchFormCard.css";
 import { REACT_APP_GOOGLE_MAPS_API_KEY } from "../config";
-import ReactGoogleAutocomplete, { usePlacesWidget } from "react-google-autocomplete";
-import { StoreBranchesSearchResult, registerStoreBranch } from "../services/storebranches.service";
+import ReactGoogleAutocomplete from "react-google-autocomplete";
+import { StoreBranchesSearchResult, getStoreBranch, registerStoreBranch, updateStoreBranch } from "../services/storebranches.service";
+import "./StoreBranchFormCard.css";
 
 const StoreBranchFormCard = ({ storeBranchId = null }) => {
     const [name, setName] = useState("");
     const [nameIsInvalid, setNameIsInvalid] = useState(false);
     const [address, setAddress] = useState(null);
+    const [finalAddress, setFinalAddress] = useState(null); 
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
     const [addressIsInvalid, setAddressIsInvalid] = useState(false); 
     const [openingHours, setOpeningHours] = useState(null);
     const [openingHoursIsInvalid, setOpeningHoursIsInvalid] = useState(false);
@@ -20,6 +22,40 @@ const StoreBranchFormCard = ({ storeBranchId = null }) => {
     const [formError, setFormError] = useState("")
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if(storeBranchId !== null) {
+            getStoreBranch(storeBranchId).then((res) => {
+                let storeBranch = res;
+                switch(storeBranch.result) {
+                    case StoreBranchesSearchResult.Success: {
+                        setName(storeBranch.data.name);
+                        setAddress(storeBranch.data.address);
+                        setFinalAddress(storeBranch.data.address);
+                        setLatitude(storeBranch.data.latitude);
+                        setLongitude(storeBranch.data.longitude);
+
+                        let openingHours = storeBranch.data.openingHours.date.split(" ")[1].split(":").slice(0, 2).join(":");
+                        let closingHours = storeBranch.data.closingHours.date.split(" ")[1].split(":").slice(0, 2).join(":");
+                        setOpeningHours(openingHours);
+                        setClosingHours(closingHours);
+                        break;
+                    }
+                    
+                    case StoreBranchesSearchResult.RequestError: {
+                        setFormError(strings.storeBranchForm.requestError);
+                        console.log(storeBranch.data);
+                        break;
+                    }
+    
+                    default: {
+                        setFormError(strings.storeBranchForm.unknownError);
+                        break;
+                    }
+                }
+            });
+        }
+    }, []);
 
     const handleRegisterButton = () => {
         let formValid = true;
@@ -41,7 +77,7 @@ const StoreBranchFormCard = ({ storeBranchId = null }) => {
             formValid = false;
         }
 
-        if(address === null) {
+        if(finalAddress === null || latitude === null || longitude === null) {
             setAddressIsInvalid(true);
             formValid = false;
         }
@@ -57,8 +93,20 @@ const StoreBranchFormCard = ({ storeBranchId = null }) => {
         }
 
         if(formValid) {
-            registerBranch();
+            if(storeBranchId === null) {
+                registerBranch();
+            }
+            else {
+                updateBranch();
+            }
         }
+    }
+
+    const handleLocationChange = (place) => {
+        setFinalAddress(place.formatted_address);
+        setAddress(place.formatted_address);
+        setLatitude(place.geometry.location.lat());
+        setLongitude(place.geometry.location.lng());
     }
 
     const handleCancelButton = () => {
@@ -66,7 +114,7 @@ const StoreBranchFormCard = ({ storeBranchId = null }) => {
     }
 
     const registerBranch = async () => {
-        let registerResult = await registerStoreBranch(name, address.formatted_address, address.geometry.location.lat(), address.geometry.location.lng(), openingHours, closingHours);
+        let registerResult = await registerStoreBranch(name, address, latitude, longitude, openingHours, closingHours);
         switch(registerResult.result) {
             case StoreBranchesSearchResult.Success: {
                 navigate("/admin/sucursales");
@@ -75,6 +123,33 @@ const StoreBranchFormCard = ({ storeBranchId = null }) => {
             case StoreBranchesSearchResult.RequestError: {
                 setFormError(strings.storeBranchForm.requestError);
                 console.log(registerResult.data);
+                return;
+            }
+            case StoreBranchesSearchResult.AlreadyExists: {
+                setFormError(strings.storeBranchForm.alreadyExists);
+                return;
+            }
+            case StoreBranchesSearchResult.UnknownError: {
+                setFormError(strings.storeBranchForm.unknownError);
+                return;
+            }
+            default: {
+                setFormError(strings.storeBranchForm.unknownError);
+                return;
+            }
+        }
+    }
+
+    const updateBranch = async () => {
+        let updateResult = await updateStoreBranch(storeBranchId, name, address, latitude, longitude, openingHours, closingHours);
+        switch(updateResult.result) {
+            case StoreBranchesSearchResult.Success: {
+                navigate("/admin/sucursales");
+                return;
+            }
+            case StoreBranchesSearchResult.RequestError: {
+                setFormError(strings.storeBranchForm.requestError);
+                console.log(updateResult.data);
                 return;
             }
             case StoreBranchesSearchResult.UnknownError: {
@@ -92,7 +167,7 @@ const StoreBranchFormCard = ({ storeBranchId = null }) => {
         <div className="store-branch-form-card">
             <Card>
                 <Card.Header>
-                    <h5>{strings.storeBranchForm.header}</h5>
+                    <h5>{storeBranchId === null ? strings.storeBranchForm.header : strings.storeBranchForm.altHeader}</h5>
                 </Card.Header>
                 <Card.Body>
                     <Form>
@@ -109,7 +184,9 @@ const StoreBranchFormCard = ({ storeBranchId = null }) => {
                                 className={"form-control"}
                                 apiKey={REACT_APP_GOOGLE_MAPS_API_KEY}
                                 options={ { types: ['address'] } }
-                                onPlaceSelected={(place) => setAddress(place)}
+                                onPlaceSelected={handleLocationChange}
+                                onChange={(e) => {setAddress(e.target.value); setFinalAddress(null); setLatitude(null); setLongitude(null);}}
+                                value={address}
                             />
                             <Form.Control.Feedback type="invalid">{strings.storeBranchForm.addressRequired}</Form.Control.Feedback>
                         </Form.Group>
@@ -122,15 +199,15 @@ const StoreBranchFormCard = ({ storeBranchId = null }) => {
 
                         <Form.Group className="mb-3" controlId="formBasicClosingHours">
                             <Form.Label>{strings.storeBranchForm.closingTimeLabel}</Form.Label>
-                            <Form.Control type="time" placeholder={strings.storeBranchForm.closingHoursPlaceholder} value={closingHours} onChange={(e) => setClosingHours(e.target.value)} isInvalid={closingHoursIsInvalid} />
+                            <Form.Control type="time" placeholder={strings.storeBranchForm.closingHoursPlaceholder} value={closingHours} onChange={(e) => {setClosingHours(e.target.value); console.log(e.target.value)}} isInvalid={closingHoursIsInvalid} />
                             <Form.Control.Feedback type="invalid">{strings.storeBranchForm.closingTimeRequired}</Form.Control.Feedback>
                         </Form.Group>
                     </Form>
+                    <div className="form-error flex-grow-1" >{formError}</div>
                 </Card.Body>
                 <Card.Footer>
-                    <div className="form-button-bar d-flex justify-content-end">
-                        <div className="form-error">{formError}</div>
-                        <div className="form-buttons">
+                    <div className="form-button-bar d-flex justify-content-end align-items-center flex-wrap-reverse">
+                        <div className="form-buttons flex-shrink-0">
                             <Button className="btn btn-primary" onClick={handleRegisterButton}>{strings.storeBranchForm.registerButton}</Button>
                             <Button className="btn btn-secondary" onClick={handleCancelButton}>{strings.storeBranchForm.cancelButton}</Button>
                         </div>
