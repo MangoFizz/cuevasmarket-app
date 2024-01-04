@@ -1,13 +1,10 @@
-import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./ProductStyles.css";
+import { useContext } from "react";
+import { CartContext } from "../helpers/CartContext";
 
-const buyNow = (product) => {
-  alert(`Compraste ${product.name}`);
-};
-
-const ProductItem = (props) => {
-  const { product } = props;
+const ProductItem = ({ product }) => {
+  const { addProductToCart } = useContext(CartContext);
 
   if (!product) return null;
 
@@ -18,9 +15,9 @@ const ProductItem = (props) => {
         <p className="card-text">{product.description}</p>
         <button
           className="btn btn-primary btn-sm"
-          onClick={() => buyNow(product)}
+          onClick={() => addProductToCart(product)}
         >
-          Comprar ahora
+          Añadir al carrito
         </button>
       </div>
     </div>
