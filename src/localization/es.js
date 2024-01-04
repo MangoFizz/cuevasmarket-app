@@ -80,6 +80,14 @@ const es = {
             categoryColumn: "Categoría",
             providerColumn: "Proveedor",
             addProductButton: "Agregar producto",
+            modalCloseButton: "Cerrar",
+            viewProductDetailsModalTitle: "Detalles del producto",
+            viewProductDetailsModalBarcodeLabel: "Código",
+            viewProductDetailsModalNameLabel: "Nombre",
+            viewProductDetailsModalPriceLabel: "Precio",
+            viewProductDetailsModalProviderLabel: "Proveedor",
+            viewProductDetailsModalCategoryLabel: "Categoría",
+            viewProductDetailsModalImageLabel: "Imagen",
         }
     }
 }

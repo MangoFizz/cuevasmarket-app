@@ -1,23 +1,18 @@
-import { Button, Card, Form, InputGroup, ButtonGroup } from "react-bootstrap";
+import { Button, Card, Form, InputGroup, ButtonGroup, Modal, Image } from "react-bootstrap";
 import { strings } from "../localization";
 import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
-import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import { useEffect, useState } from "react";
 import { ProductsServiceResult, searchProducts } from "../services/products.service";
 import "./ProductsTableCard.css";
-
-let tableNameColumnFilter;
-
-const handleGuestSearchInputChange = (event) => {
-    tableNameColumnFilter(event.target.value);
-}
+import { API_URL } from "../config";
 
 const ProductsTableCard = () => {
     const [products, setProducts] = useState([]); 
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [selectedProduct, setSelectedProduct] = useState({}); 
+    const [viewProductDetailsModalShow, setViewProductDetailsModalShow] = useState(false);
 
     const branchesPerPage = 15;
 
@@ -119,6 +114,7 @@ const ProductsTableCard = () => {
                                 formatter: (cell, row, rowIndex, formatExtraData) => {
                                     return (
                                         <ButtonGroup>
+                                            <Button variant="secondary" className="text-nowrap" onClick={() => { setSelectedProduct(row); setViewProductDetailsModalShow(true); }}><i className="bi bi-eye-fill"></i></Button>
                                             <Button variant="secondary" className="text-nowrap"><i className="bi bi-pencil-fill"></i></Button>
                                             <Button variant="danger" className="text-nowrap"><i className="bi bi-x-lg"></i></Button>
                                         </ButtonGroup>
@@ -153,6 +149,44 @@ const ProductsTableCard = () => {
                     </div>
                 </Card.Footer>
             </Card>
+
+            <Modal show={viewProductDetailsModalShow} scrollable>
+                <Modal.Header>
+                    <Modal.Title>{strings.productsTableCard.viewProductDetailsModalTitle}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group className="mb-3">
+                            <Form.Label>{strings.productsTableCard.viewProductDetailsModalBarcodeLabel}</Form.Label>
+                            <Form.Control type="text" readOnly value={selectedProduct.barcode}/>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>{strings.productsTableCard.viewProductDetailsModalNameLabel}</Form.Label>
+                            <Form.Control type="text" readOnly value={selectedProduct.name}/>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>{strings.productsTableCard.viewProductDetailsModalPriceLabel}</Form.Label>
+                            <Form.Control type="text" readOnly value={selectedProduct.price}/>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>{strings.productsTableCard.viewProductDetailsModalCategoryLabel}</Form.Label>
+                            <Form.Control type="text" readOnly value={selectedProduct.category}/>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>{strings.productsTableCard.viewProductDetailsModalProviderLabel}</Form.Label>
+                            <Form.Control type="text" readOnly value={selectedProduct.provider}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>{strings.productsTableCard.viewProductDetailsModalImageLabel}</Form.Label>
+                            <br />
+                            <Image src={`/images/products/${selectedProduct.image}`} fluid/>
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setViewProductDetailsModalShow(false)}>{strings.productsTableCard.modalCloseButton}</Button>
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }
