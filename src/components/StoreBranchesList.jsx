@@ -10,7 +10,7 @@ import GoogleMapsWrapper from "./GoogleMaps/GoogleMapsWrapper";
 import { Button, Modal } from "react-bootstrap";
 
 const StoreBranchesList = () => {
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -131,7 +131,7 @@ const StoreBranchesList = () => {
 
                 <GoogleMapsWrapper>
 
-                    {searchResults.map(storeBranch => {
+                    {searchResults?.map(storeBranch => {
                         // parse date from 1970-01-01 18:00:00.000000 format 
                         let openingHours = storeBranch.openingHours.date.split(" ")[1].split(":").slice(0, 2).join(":");
                         let closingHours = storeBranch.closingHours.date.split(" ")[1].split(":").slice(0, 2).join(":");
@@ -176,7 +176,7 @@ const StoreBranchesList = () => {
 
                 </GoogleMapsWrapper>
 
-                {searchResults.length === 0 ? <h5 style={{ textAlign: "center" }} className="mb-3">{strings.storeBranchesList.noResults}</h5> : null}
+                {searchResults !== null && searchResults.length === 0 ? <h5 style={{ textAlign: "center" }} className="mb-3">{strings.storeBranchesList.noResults}</h5> : null}
 
                 <nav aria-label="Page navigation" className="navigation">
                     <ul className="pagination justify-content-center">

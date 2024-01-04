@@ -62,6 +62,24 @@ const es = {
             registerButton: "Aceptar",
             cancelButton: "Cancelar",
             alreadyExists: "Ya existe una sucursal con ese nombre."
+        },
+
+        productManagement: {
+            header: "Administración de productos",
+            registerNewProduct: "Nuevo producto",
+            searchBarPlaceholder: "Buscar producto...",
+            noResults: "No se encontraron resultados",
+        },
+
+        productsTableCard: {
+            header: "Productos",
+            searchBarPlaceholder: "Buscar producto...",
+            barcodeColumn: "Código",
+            nameColumn: "Nombre",
+            priceColumn: "Precio",
+            categoryColumn: "Categoría",
+            providerColumn: "Proveedor",
+            addProductButton: "Agregar producto",
         }
     }
 }

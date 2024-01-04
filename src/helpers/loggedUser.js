@@ -21,6 +21,10 @@ export function getLoggedUser() {
     return null;
 }
 
+export function getLoggedUserId() {
+    return getLoggedUser()?.id;
+}
+
 export function getLoggedUserType() {
     return getLoggedUser()?.type;
 }

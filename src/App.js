@@ -7,6 +7,7 @@ import StoreBranchesManagement from './pages/StoreBranchesManagement';
 import StoreBranchForm from './components/StoreBranchFormCard';
 import RegisterStoreBranch from './pages/RegisterStoreBranch';
 import ModifyStoreBranch from './pages/ModifyStoreBranch';
+import ProductsManagement from './pages/ProductsManagement';
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/admin/sucursales" element={<StoreBranchesManagement />} />
                     <Route path="/admin/sucursales/registrar" element={<RegisterStoreBranch />} />
                     <Route path="/admin/sucursales/editar/:storeBranchId" element={<ModifyStoreBranch />} />
+                    <Route path="/admin/productos" element={<ProductsManagement />} />
                 </Routes>
             </BrowserRouter>
         </div>

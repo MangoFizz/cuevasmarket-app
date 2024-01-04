@@ -28,7 +28,7 @@ const AdminSidebar = () => {
                             {strings.adminSidebar.storeBranches}
                         </CDBSidebarMenuItem>
                     </NavLink>
-                    <NavLink exact to="/admin/pedidos" activeClassName="activeClicked" style={{ color: "inherit" }}>
+                    <NavLink exact to="/admin/productos" activeClassName="activeClicked" style={{ color: "inherit" }}>
                         <CDBSidebarMenuItem icon="archive">
                             {strings.adminSidebar.products}
                         </CDBSidebarMenuItem>
