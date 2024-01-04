@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ProductsServiceResult, searchProducts } from "../services/products.service";
 import "./ProductsTableCard.css";
 import { API_URL } from "../config";
+import { useNavigate } from "react-router-dom";
 
 const ProductsTableCard = () => {
     const [products, setProducts] = useState([]); 
@@ -15,6 +16,8 @@ const ProductsTableCard = () => {
     const [viewProductDetailsModalShow, setViewProductDetailsModalShow] = useState(false);
 
     const branchesPerPage = 15;
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchSearchResults(searchQuery, currentPage);
@@ -67,6 +70,10 @@ const ProductsTableCard = () => {
         if(currentPage > 1) {
             fetchSearchResults(searchQuery, currentPage - 1);
         }
+    }
+
+    const handleAddProductButtonClick = () => {
+        navigate("registrar");
     }
 
     return (
@@ -144,7 +151,7 @@ const ProductsTableCard = () => {
                             </ul>
                         </nav>
                         <div>
-                            <Button variant="primary" className="text-nowrap"><i className="bi bi-plus-lg"></i> {strings.productsTableCard.addProductButton}</Button>
+                            <Button variant="primary" className="text-nowrap" onClick={handleAddProductButtonClick}><i className="bi bi-plus-lg"></i> {strings.productsTableCard.addProductButton}</Button>
                         </div>
                     </div>
                 </Card.Footer>
@@ -179,7 +186,7 @@ const ProductsTableCard = () => {
                         <Form.Group>
                             <Form.Label>{strings.productsTableCard.viewProductDetailsModalImageLabel}</Form.Label>
                             <br />
-                            <Image src={`/images/products/${selectedProduct.image}`} fluid/>
+                            <Image src={`${API_URL}/images/products/${selectedProduct.image}`} fluid/>
                         </Form.Group>
                     </Form>
                 </Modal.Body>

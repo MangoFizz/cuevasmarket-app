@@ -8,6 +8,7 @@ import StoreBranchForm from './components/StoreBranchFormCard';
 import RegisterStoreBranch from './pages/RegisterStoreBranch';
 import ModifyStoreBranch from './pages/ModifyStoreBranch';
 import ProductsManagement from './pages/ProductsManagement';
+import RegisterProduct from './pages/RegisterProduct';
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/admin/sucursales/registrar" element={<RegisterStoreBranch />} />
                     <Route path="/admin/sucursales/editar/:storeBranchId" element={<ModifyStoreBranch />} />
                     <Route path="/admin/productos" element={<ProductsManagement />} />
+                    <Route path="/admin/productos/registrar" element={<RegisterProduct />} />
                 </Routes>
             </BrowserRouter>
         </div>
