@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Form.css";
-import SubmitPayment from "../services/payment.service";
+import { SubmitPayment } from "../services/payment.service";
 
 export default function CreditCardForm() {
   const [cardNumber, setCardNumber] = React.useState("");
