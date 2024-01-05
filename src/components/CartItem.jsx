@@ -14,9 +14,9 @@ const CartItem = ({ product, removeFromCart }) => {
           <p>{product.quantity}</p>
           <button
             className="btn btn-danger btn-sm float-right"
-            onClick={() => removeFromCart(product)}
+            onClick={() => removeFromCart(product.id)}
           >
-            Remove
+            Quitar del carrito
           </button>
         </div>
       </div>
