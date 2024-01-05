@@ -28,7 +28,7 @@ const Navbar = () => {
             navigate("/");
         }
         else {
-            navigate("/login");
+            navigate("/iniciar-sesion");
         }
     }
 

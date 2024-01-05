@@ -40,7 +40,7 @@ const LoginPage = () => {
     }
 
     return (
-        <LoginForm onSuccessCallback={onUserLogin} />
+        <LoginForm onSuccessCallback={onUserLogin} showRegisterButton={true} />
     );
 }
 

@@ -1,0 +1,14 @@
+.register-form-wrapper {
+    width: 35%;
+    margin:auto;
+}
+
+.form-button-bar button {
+    margin-left: 0.4rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

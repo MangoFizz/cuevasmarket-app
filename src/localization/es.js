@@ -30,7 +30,8 @@ const es = {
             usernameInvalid: "Por favor, ingrese un número de teléfono válida.",
             passwordRequired: "Por favor, ingrese su contraseña.",
             invalidCredentials: "Credenciales no válidas.",
-            tooManyAttempts: "Demasiados intentos. Por favor, inténtelo de nuevo más tarde."
+            tooManyAttempts: "Demasiados intentos. Por favor, inténtelo de nuevo más tarde.",
+            registerLink: "¿No tienes una cuenta?"
         },
 
         storeBranchesList: {
@@ -174,7 +175,34 @@ const es = {
             "admin": "Administrador",
             "manager": "Gerente de ventas",
             "delivery man": "Repartidor",
-        }
+        },
+
+        registerCustomer: {
+            header: "Crear cuenta de cliente",
+            firstNameLabel: "Nombre",
+            firstNamePlaceholder: "Nombre del cliente",
+            firstNameRequired: "Por favor, ingrese el nombre del cliente.",
+            surnamesLabel: "Apellidos",
+            surnamesPlaceholder: "Apellidos del cliente",
+            surnamesRequired: "Por favor, ingrese los apellidos del cliente.",
+            phoneNumberLabel: "Número de teléfono",
+            phoneNumberPlaceholder: "Número de teléfono del cliente",
+            phoneNumberRequired: "Por favor, ingrese el número de teléfono del cliente.",
+            phoneNumberInvalid: "Por favor, ingrese un número de teléfono válido.",
+            passwordLabel: "Contraseña",
+            passwordPlaceholder: "Contraseña del cliente",
+            passwordRequired: "Por favor, ingrese la contraseña del cliente.",
+            passwordInvalid: "Por favor, ingrese una contraseña válida: mínimo 8 caracteres, una letra mayúscula, una letra minúscula, un número y un caracter especial.",
+            confirmPasswordLabel: "Confirmar contraseña",
+            confirmPasswordPlaceholder: "Confirmar contraseña del usuario",
+            confirmPasswordIsInvalid: "Las contraseñas no coinciden.",
+            confirmPasswordRequired: "Por favor, confirme la contraseña del usuario.",
+            registerButton: "Registrarse",
+            cancelButton: "Cancelar",
+            requestError: "No se pudo registrar el cliente.",
+            unknownError: "Ha ocurrido un error desconocido.",
+            alreadyExists: "Ya existe un cliente con ese número de teléfono.",
+        },
     }
 }
 

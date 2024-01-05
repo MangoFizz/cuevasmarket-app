@@ -51,7 +51,7 @@ const StoreBranchesList = () => {
 
     useEffect(() => {
         if(!isUserLogged()) {
-            navigate("/login");
+            navigate("/iniciar-sesion");
             return;
         }
         fetchSearchResults("", 1);

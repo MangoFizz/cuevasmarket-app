@@ -17,7 +17,7 @@ const CataloguePage = () => {
     //         return;
     //     }
     //     else {
-    //         navigate("/login");
+    //         navigate("/iniciar-sesion");
     //         return;
     //     }
     // }, [navigate]);

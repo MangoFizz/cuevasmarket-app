@@ -6,7 +6,7 @@ import { Card, Form } from "react-bootstrap";
 import { strings } from "../localization";
 import "./LoginForm.css";
 
-const LoginForm = ({ onSuccessCallback }) => {
+const LoginForm = ({ onSuccessCallback, showRegisterButton = false }) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [formError, setFormError] = useState("")
@@ -83,6 +83,11 @@ const LoginForm = ({ onSuccessCallback }) => {
                                 </span>
                             </div>
                         </div>
+                        {showRegisterButton ?
+                            <div className="d-flex justify-content-end">
+                                <a href="/registrar-cliente" className="text-decoration-none">{strings.loginForm.registerLink}</a>
+                            </div>
+                        : null}
                     </div>
                     <div className="card-footer d-flex flex-row-reverse align-items-center justify-content-between">
                         <button type="button" className="btn btn-primary" onClick={checkFormFields}>{strings.loginForm.submitButtonLabel}</button>

@@ -185,7 +185,7 @@ const UserFormCard = ({ userId = null }) => {
                     <h5>{userId === null ? strings.registerUser.header : strings.registerUser.altHeader}</h5>
                 </Card.Header>
                 <Card.Body>
-                    <Form autocomplete="off"    >
+                    <Form autocomplete="off">
                         <Form.Group className="mb-3" controlId="firstNameInput">
                             <Form.Label>{strings.registerUser.firstNameLabel}</Form.Label>
                             <Form.Control type="text" placeholder={strings.registerUser.firstNamePlaceholder} value={firstName} onChange={(e) => setFirstName(e.target.value)} isInvalid={firstNameIsInvalid} />
@@ -207,7 +207,7 @@ const UserFormCard = ({ userId = null }) => {
                         <Form.Group className="mb-3" controlId="passwordInput">
                             <Form.Label>{strings.registerUser.passwordLabel}</Form.Label>
                             <InputGroup>
-                                <Form.Control type={passwordVisible ? "text" : "password"} placeholder={strings.registerUser.passwordPlaceholder} value={password} onChange={(e) => setPassword(e.target.value)} isInvalid={passwordIsInvalid} autocomplete="off" autocomplete="new-password" />
+                                <Form.Control type={passwordVisible ? "text" : "password"} placeholder={strings.registerUser.passwordPlaceholder} value={password} onChange={(e) => setPassword(e.target.value)} isInvalid={passwordIsInvalid} autocomplete="new-password" />
                                 <span className="input-group-text" onClick={() => setPasswordVisible(!passwordVisible)} style={{cursor: "pointer"}}>
                                     <i className={!passwordVisible ? "bi bi-eye" : "bi bi-eye-slash"} id="togglePassword"></i>
                                 </span>

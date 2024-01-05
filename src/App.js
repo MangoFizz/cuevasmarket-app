@@ -8,9 +8,10 @@ import ProductsManagement from './pages/ProductsManagement';
 import RegisterProduct from './pages/RegisterProduct';
 import ModifyProduct from './pages/ModifyProductPage';
 import UsersManagement from './pages/UsersManagement';
-import './App.css';
 import RegisterUser from './pages/RegisterUser';
 import ModifyUser from './pages/ModifyUser';
+import RegisterCustomer from './pages/RegisterCustomer';
+import './App.css';
 
 function App() {
     return (
@@ -18,7 +19,8 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<CataloguePage />} />
-                    <Route path="/login" element={<LoginPage/>} />
+                    <Route path="/iniciar-sesion" element={<LoginPage/>} />
+                    <Route path="/registrar-cliente" element={<RegisterCustomer/>} />
                     <Route path="/admin/sucursales" element={<StoreBranchesManagement />} />
                     <Route path="/admin/sucursales/registrar" element={<RegisterStoreBranch />} />
                     <Route path="/admin/sucursales/editar/:storeBranchId" element={<ModifyStoreBranch />} />
