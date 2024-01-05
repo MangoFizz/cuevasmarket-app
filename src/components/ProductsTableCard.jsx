@@ -2,7 +2,7 @@ import { Button, Card, Form, InputGroup, ButtonGroup, Modal, Image } from "react
 import { strings } from "../localization";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useEffect, useState } from "react";
-import { ProductsServiceResult, searchProducts } from "../services/products.service";
+import { ProductsServiceResult, deleteProduct, searchProducts } from "../services/products.service";
 import "./ProductsTableCard.css";
 import { API_URL } from "../config";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ const ProductsTableCard = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [selectedProduct, setSelectedProduct] = useState({}); 
     const [viewProductDetailsModalShow, setViewProductDetailsModalShow] = useState(false);
+    const [deleteProductConfirmationModalShow, setDeleteProductConfirmationModalShow] = useState(false);
 
     const branchesPerPage = 15;
 
@@ -76,6 +77,30 @@ const ProductsTableCard = () => {
         navigate("registrar");
     }
 
+    const handleDeleteProductButtonClick = async () => {
+        try {
+            let r = await deleteProduct(selectedProduct.id);
+            switch(r.result) {
+                case ProductsServiceResult.Success: {
+                    setDeleteProductConfirmationModalShow(false);
+                    await fetchSearchResults(searchQuery, currentPage);
+                    return;
+                }
+                case ProductsServiceResult.UnknownError: {
+                    console.log(r);
+                    return;
+                }
+                default: {
+                    console.log("Server returned non-200 status code");
+                    return;
+                }
+            }
+        }
+        catch (e) {
+            console.log(`Failed to delete product: ${e}`);
+        }
+    }
+
     return (
         <>
             <Card>
@@ -123,7 +148,7 @@ const ProductsTableCard = () => {
                                         <ButtonGroup>
                                             <Button variant="secondary" className="text-nowrap" onClick={() => { setSelectedProduct(row); setViewProductDetailsModalShow(true); }}><i className="bi bi-eye-fill"></i></Button>
                                             <Button variant="secondary" className="text-nowrap" onClick={() => { navigate(`editar/${row.id}`) }}><i className="bi bi-pencil-fill"></i></Button>
-                                            <Button variant="danger" className="text-nowrap"><i className="bi bi-x-lg"></i></Button>
+                                            <Button variant="danger" className="text-nowrap" onClick={ () => { setSelectedProduct(row); setDeleteProductConfirmationModalShow(true); } }><i className="bi bi-x-lg"></i></Button>
                                         </ButtonGroup>
                                     );
                                 }
@@ -192,6 +217,19 @@ const ProductsTableCard = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setViewProductDetailsModalShow(false)}>{strings.productsTableCard.modalCloseButton}</Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={deleteProductConfirmationModalShow}>
+                <Modal.Header>
+                    <Modal.Title>{strings.productsTableCard.deleteProductConfirmationModalHeader}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>{strings.productsTableCard.deleteProductConfirmationModalBody}</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={ () => { setDeleteProductConfirmationModalShow(false) } }>{strings.productsTableCard.deleteProductConfirmationModalCancelButton}</Button>
+                    <Button variant="danger" onClick={handleDeleteProductButtonClick}>{strings.productsTableCard.deleteProductConfirmationModalDeleteButton}</Button>
                 </Modal.Footer>
             </Modal>
         </>

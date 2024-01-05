@@ -88,6 +88,10 @@ const es = {
             viewProductDetailsModalProviderLabel: "Proveedor",
             viewProductDetailsModalCategoryLabel: "Categoría",
             viewProductDetailsModalImageLabel: "Imagen",
+            deleteProductConfirmationModalHeader: "Eliminar producto",
+            deleteProductConfirmationModalBody: "¿Está seguro que desea eliminar este producto?",
+            deleteProductConfirmationModalCancelButton: "Cancelar",
+            deleteProductConfirmationModalDeleteButton: "Eliminar",
         },
 
         registerProduct: {
@@ -116,7 +120,7 @@ const es = {
             categoryRequired: "Por favor, ingrese la categoría del producto.",
             registerButton: "Aceptar",
             cancelButton: "Cancelar",
-            imageLabel: "Imagen",
+            imageLabel: "Imagen"
         }
     }
 }

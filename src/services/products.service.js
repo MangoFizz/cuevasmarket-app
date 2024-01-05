@@ -108,3 +108,19 @@ export async function updateProduct(productId, barcode, name, description, price
             return { result: ProductsServiceResult.UnknownError };
     }
 }
+
+export async function deleteProduct(productId) {
+    const req = new RequestsHelper(API_URL);
+    const response = await req.delete(`products/${productId}`, getLoggedUserToken());
+    let status = response.statusCode;
+    switch(status) {
+        case 200:
+            return { result: ProductsServiceResult.Success, data: response.data };
+
+        case 500:
+            return { result: ProductsServiceResult.ServerError };
+        
+        default:
+            return { result: ProductsServiceResult.UnknownError };
+    }
+}
