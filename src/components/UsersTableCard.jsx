@@ -194,16 +194,8 @@ const UsersTableCard = () => {
                             <Form.Control type="text" readOnly value={selectedUser.surnames}/>
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>{strings.usersTableCard.viewUserDetailsModalPhoneNumberLabel}</Form.Label>
-                            <Form.Control type="text" readOnly value={selectedUser.phoneNumber}/>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
                             <Form.Label>{strings.usersTableCard.viewUserDetailsModalUsernameLabel}</Form.Label>
                             <Form.Control type="text" readOnly value={selectedUser.username}/>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>{strings.usersTableCard.viewUserDetailsModalPasswordLabel}</Form.Label>
-                            <Form.Control type="text" readOnly value={selectedUser.paassword}/>
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>{strings.usersTableCard.viewUserDetailsModalTypeLabel}</Form.Label>

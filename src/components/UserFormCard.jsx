@@ -19,8 +19,6 @@ const UserFormCard = ({ userId = null }) => {
     const [firstNameIsInvalid, setFirstNameIsInvalid] = useState(false);
     const [surnames, setSurnames] = useState("");
     const [surnamesIsInvalid, setSurnamesIsInvalid] = useState(false);
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [phoneNumberIsInvalid, setPhoneNumberIsInvalid] = useState(false);
     const [password, setPassword] = useState("");
     const [passwordIsInvalid, setPasswordIsInvalid] = useState(false);
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -42,7 +40,6 @@ const UserFormCard = ({ userId = null }) => {
                         setUsername(user.username);
                         setFirstName(user.firstName);
                         setSurnames(user.surnames);
-                        setPhoneNumber(user.phoneNumber);
                         setPassword(user.password);
                         setType(user.type);
                         break;
@@ -69,7 +66,6 @@ const UserFormCard = ({ userId = null }) => {
         setUsernameIsInvalid(false);
         setFirstNameIsInvalid(false);
         setSurnamesIsInvalid(false);
-        setPhoneNumberIsInvalid(false);
         setPasswordIsInvalid(false);
         setTypeIsInvalid(false);
 
@@ -97,16 +93,6 @@ const UserFormCard = ({ userId = null }) => {
         }
         else if(surnames.length < 4 || surnames.length > 200) {
             setSurnamesIsInvalid(true);
-            formValid = false;
-        }
-
-        // check if price is a valid number
-        if(phoneNumber === "") {
-            setPhoneNumberIsInvalid(true);
-            formValid = false;
-        }
-        else if(isNaN(phoneNumber) || phoneNumber.toString().length < 8 || phoneNumber.toString().length > 15) {
-            setPhoneNumberIsInvalid(true);
             formValid = false;
         }
 
@@ -146,7 +132,7 @@ const UserFormCard = ({ userId = null }) => {
     }
 
     const doRegisterUser = async () => {
-        let registerResult = await registerUser(firstName, surnames, phoneNumber, username, password, type);
+        let registerResult = await registerUser(firstName, surnames, null, username, password, type);
         switch(registerResult.result) {
             case UsersServiceResult.Success: {
                 navigate("/admin/usuarios");
@@ -172,7 +158,7 @@ const UserFormCard = ({ userId = null }) => {
     }
 
     const doUpdateUser = async () => {
-        let updateResult = await updateUser(userId, firstName, surnames, phoneNumber, username, password, type);
+        let updateResult = await updateUser(userId, firstName, surnames, null, username, password, type);
         switch(updateResult.result) {
             case UsersServiceResult.Success: {
                 navigate("/admin/usuarios");
@@ -213,15 +199,9 @@ const UserFormCard = ({ userId = null }) => {
                             <Form.Control.Feedback type="invalid">{strings.registerUser.surnamesRequired}</Form.Control.Feedback>
                         </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="phoneNumberInput">
-                            <Form.Label>{strings.registerUser.phoneNumberLabel}</Form.Label>
-                            <Form.Control type="number" placeholder={strings.registerUser.phoneNumberPlaceholder} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} isInvalid={phoneNumberIsInvalid} />
-                            <Form.Control.Feedback type="invalid">{strings.registerUser.phoneNumberRequired}</Form.Control.Feedback>
-                        </Form.Group>
-
                         <Form.Group className="mb-3" controlId="usernameInput">
                             <Form.Label>{strings.registerUser.usernameLabel}</Form.Label>
-                            <Form.Control type="text" placeholder={strings.registerUser.usernamePlaceholder} value={username} onChange={(e) => setUsername(e.target.value)} isInvalid={phoneNumberIsInvalid} />
+                            <Form.Control type="text" placeholder={strings.registerUser.usernamePlaceholder} value={username} onChange={(e) => setUsername(e.target.value)} isInvalid={usernameIsInvalid} />
                             <Form.Control.Feedback type="invalid">{strings.registerUser.usernameRequired}</Form.Control.Feedback>
                         </Form.Group>
 
