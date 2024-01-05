@@ -3,22 +3,21 @@
   background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
 }
 
-body:has(.mainContainer) {
-    overflow: hidden;
+html {
+    height: 100%;
 }
 
 .mainContainer {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     padding-top: 22px;
-    overflow: hidden;
-    overflow-y: auto;
 }
 
-.mainContainer .content {
+.mainContainer > .content {
     width: 70%;
     max-width: 1200px;
     margin: 0 auto;
+    padding-top: 22px;
 }
 
 .adminPanel .mainContainer {
@@ -33,6 +32,19 @@ body:has(.mainContainer) {
     margin-bottom: 20px;
 }
 
-.adminPanel {
-    min-height: 100vh;
+.sidebar-fixed {
+    height: 100% !important;
+    position: fixed !important;
+}
+
+@media screen and (max-width: 1056px) {
+    .adminPanel .mainContainer {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 872px) {
+    .hide-on-md {
+        display: none;
+    }
 }

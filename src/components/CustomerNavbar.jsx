@@ -26,14 +26,16 @@ const Navbar = () => {
     setLoggedUserData(getLoggedUser());
   }, [loggedIn]);
 
-  const onLogButton = () => {
-    if (loggedIn) {
-      setLoggedUser(null);
-      setLoggedUserData(null);
-      setLoggedIn(false);
-      navigate("/");
-    } else {
-      navigate("/login");
+    const onLogButton = () => {
+        if(loggedIn) {
+            setLoggedUser(null);
+            setLoggedUserData(null);
+            setLoggedIn(false);
+            navigate("/");
+        }
+        else {
+            navigate("/iniciar-sesion");
+        }
     }
   };
 

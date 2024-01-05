@@ -2,20 +2,22 @@ import React, { useEffect, useState } from "react"
 import { currentLang, locale, strings } from "../localization";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { StoreBranchesSearchResult, searchStoreBranches } from "../services/storebranches.service";
+import { StoreBranchesSearchResult, deleteStoreBranch, searchStoreBranches } from "../services/storebranches.service";
 import { isUserLogged } from "../helpers/loggedUser";
 import AdminSidebar from "./StoreBranchesList.css";
 import GoogleMaps from "./GoogleMaps/GoogleMaps";
 import GoogleMapsWrapper from "./GoogleMaps/GoogleMapsWrapper";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 
 const StoreBranchesList = () => {
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState(false);
+    const [selectedStoreBranchId, setSelectedStoreBranchId] = useState(null);
 
-    const branchesPerPage = 10;
+    const branchesPerPage = 5;
     const navigate = useNavigate();
 
     const fetchSearchResults = async (searchQuery, page) => {
@@ -24,7 +26,6 @@ const StoreBranchesList = () => {
 
             switch(r.result) {
                 case StoreBranchesSearchResult.Success: {
-                    console.log(r.data);
                     let responseData = r.data;
                     setSearchResults(responseData.results);
                     setCurrentPage(responseData.currentPage);
@@ -50,7 +51,7 @@ const StoreBranchesList = () => {
 
     useEffect(() => {
         if(!isUserLogged()) {
-            navigate("/login");
+            navigate("/iniciar-sesion");
             return;
         }
         fetchSearchResults("", 1);
@@ -79,11 +80,7 @@ const StoreBranchesList = () => {
     }
 
     const handleRegisterBranchButton = () => {
-        navigate("/admin/registrar-sucursal");
-    }
-
-    const handleBranchCardClick = (eventId) => {
-        navigate(`/event/${eventId}`);
+        navigate("registrar");
     }
 
     const handleSearchInputKeyDown = (event) => {
@@ -93,20 +90,48 @@ const StoreBranchesList = () => {
         }
     }
 
+    const handleSearchButtonClick = () => {
+        setCurrentPage(1);
+        fetchSearchResults(searchQuery, 1);
+    }
+
+    const handleDeleteStoreBranchButtonClick = async () => {
+        setShowDeleteConfirmationModal(false);
+        try {
+            if(selectedStoreBranchId !== null) {
+                let r = await deleteStoreBranch(selectedStoreBranchId);
+                switch(r.result) {
+                    case StoreBranchesSearchResult.Success: {
+                        await fetchSearchResults(searchQuery, currentPage);
+                        break;
+                    }
+                    default: {
+                        console.log(`Server returned non-200 status code: ${r.data}`);
+                        break;
+                    }
+                    setShowDeleteConfirmationModal(false);
+                }
+            }
+        }
+        catch (e) {
+            console.log(`Failed to delete store branch: ${e}`);
+        }
+    }
+
     return (
         <div className="d-flex">
             <div className="content flex-fill">
                 <div className="d-flex store-branches-options-bar">
                     <div className="input-group search-bar">
                         <input type="search" id="form1" className="form-control" placeholder={strings.storeBranchesList.searchBarPlaceholder} aria-label="Search" onChange={handleSearchInputChange} onKeyDownCapture={handleSearchInputKeyDown} />
-                        <span className="input-group-text" id="search"><i className="bi bi-search"></i></span>
+                        <span className="input-group-text" id="search" onClick={handleSearchButtonClick} style={{ cursor: "pointer" }}><i className="bi bi-search"></i></span>
                     </div>
                     <button type="button" className="btn btn-success text-nowrap" onClick={handleRegisterBranchButton}>{strings.storeBranchesList.registerNewStoreBranch}</button>
                 </div>
 
                 <GoogleMapsWrapper>
 
-                    {searchResults.map(storeBranch => {
+                    {searchResults?.map(storeBranch => {
                         // parse date from 1970-01-01 18:00:00.000000 format 
                         let openingHours = storeBranch.openingHours.date.split(" ")[1].split(":").slice(0, 2).join(":");
                         let closingHours = storeBranch.closingHours.date.split(" ")[1].split(":").slice(0, 2).join(":");
@@ -137,8 +162,8 @@ const StoreBranchesList = () => {
                                                 </div>
                                             </div>
                                             <div className="store-branch-options">
-                                                <Button variant="primary">Editar</Button>
-                                                <Button variant="danger">Eliminar</Button>
+                                                <Button variant="primary" onClick={() => { navigate(`editar/${storeBranch.id}`) }} >Editar</Button>
+                                                <Button variant="danger" onClick={() => { setSelectedStoreBranchId(storeBranch.id); setShowDeleteConfirmationModal(true) }}>Eliminar</Button>
                                             </div>
                                         </div>
                                         <GoogleMaps mapId="map_id" locations={locations} className={"branchLocationMap"} />
@@ -150,6 +175,8 @@ const StoreBranchesList = () => {
                     })}
 
                 </GoogleMapsWrapper>
+
+                {searchResults !== null && searchResults.length === 0 ? <h5 style={{ textAlign: "center" }} className="mb-3">{strings.storeBranchesList.noResults}</h5> : null}
 
                 <nav aria-label="Page navigation" className="navigation">
                     <ul className="pagination justify-content-center">
@@ -168,8 +195,20 @@ const StoreBranchesList = () => {
                         </li>
                     </ul>
                 </nav>
-
             </div>
+
+            <Modal show={showDeleteConfirmationModal}>
+                <Modal.Header>
+                    <Modal.Title>Eliminar sucursal</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>¿Está seguro que desea eliminar la sucursal?</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowDeleteConfirmationModal(false)}>Cancelar</Button>
+                    <Button variant="danger" onClick={handleDeleteStoreBranchButtonClick}>Eliminar</Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }

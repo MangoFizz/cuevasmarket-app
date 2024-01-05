@@ -23,7 +23,7 @@ const LoginPage = () => {
                     break;
                 }
                 case "manager": {
-                    navigate("/manager");
+                    navigate("/gerente/inventario");
                     break;
                 }
                 case "admin": {
@@ -40,7 +40,7 @@ const LoginPage = () => {
     }
 
     return (
-        <LoginForm onSuccessCallback={onUserLogin} />
+        <LoginForm onSuccessCallback={onUserLogin} showRegisterButton={true} />
     );
 }
 

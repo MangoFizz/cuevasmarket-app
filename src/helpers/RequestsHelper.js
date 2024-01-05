@@ -16,12 +16,12 @@ export default class RequestsHelper {
 
     async post(endpoint, data, authorizationToken = null) {
         const response = await fetch(this.url + endpoint, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            'authorization': `${authorizationToken}`
-        },
-        body: JSON.stringify(data),
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                'authorization': `${authorizationToken}`
+            },
+            body: JSON.stringify(data),
         });
         const responseData = await response.json();
         return responseData;
@@ -36,6 +36,13 @@ export default class RequestsHelper {
             },
             body: JSON.stringify(data),
         });
+        /**
+         * https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+         * The 204 response MUST NOT include a message-body, and thus is always terminated by the first empty line after the header fields.
+         */
+        if(response.status === 204) {
+            return { statusCode: response.status };
+        }
         const responseData = await response.json();
         return responseData;
     }
