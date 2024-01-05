@@ -108,7 +108,7 @@ const ProductsTableCard = () => {
                                 dataField: "price",
                                 text: strings.productsTableCard.priceColumn,
                                 formatter: (cell, row) => {
-                                    return `$ ${cell}`;
+                                    return `$ ${cell.toFixed(2)}`;
                                 }
                             },
                             {
@@ -122,7 +122,7 @@ const ProductsTableCard = () => {
                                     return (
                                         <ButtonGroup>
                                             <Button variant="secondary" className="text-nowrap" onClick={() => { setSelectedProduct(row); setViewProductDetailsModalShow(true); }}><i className="bi bi-eye-fill"></i></Button>
-                                            <Button variant="secondary" className="text-nowrap"><i className="bi bi-pencil-fill"></i></Button>
+                                            <Button variant="secondary" className="text-nowrap" onClick={() => { navigate(`editar/${row.id}`) }}><i className="bi bi-pencil-fill"></i></Button>
                                             <Button variant="danger" className="text-nowrap"><i className="bi bi-x-lg"></i></Button>
                                         </ButtonGroup>
                                     );

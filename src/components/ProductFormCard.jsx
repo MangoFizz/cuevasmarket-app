@@ -21,7 +21,7 @@ const categories = [
     "Alcohol"
 ];  
 
-const ProductFormCard = ({ storeBranchId: productId = null }) => {
+const ProductFormCard = ({ productId = null }) => {
     const [barcode, setBarcode] = useState("");
     const [barcodeIsInvalid, setBarcodeIsInvalid] = useState(false);
     const [name, setName] = useState("");
@@ -41,12 +41,13 @@ const ProductFormCard = ({ storeBranchId: productId = null }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log("productId: " + productId);
         if(productId !== null) {
             getProduct(productId).then((res) => {
                 let product = res.data;
                 switch(res.result) {
                     case StoreBranchesSearchResult.Success: {
-                        setBarcode(product.name);
+                        setBarcode(product.barcode);
                         setName(product.name);
                         setDescription(product.description);
                         setPrice(product.price);
@@ -86,7 +87,7 @@ const ProductFormCard = ({ storeBranchId: productId = null }) => {
             setBarcodeIsInvalid(true);
             formValid = false;
         }
-        else if(barcode.length != 12) {
+        else if(barcode.length != 13) {
             setBarcodeIsInvalid(true);
             formValid = false;
         }
@@ -147,7 +148,7 @@ const ProductFormCard = ({ storeBranchId: productId = null }) => {
                 doRegisterProduct();
             }
             else {
-                updateBranch();
+                doUpdateProduct();
             }
         }
     }
@@ -182,7 +183,7 @@ const ProductFormCard = ({ storeBranchId: productId = null }) => {
         }
     }
 
-    const updateBranch = async () => {
+    const doUpdateProduct = async () => {
         let updateResult = await updateProduct(productId, barcode, name, description, price, provider, category, image);
         switch(updateResult.result) {
             case ProductsServiceResult.Success: {

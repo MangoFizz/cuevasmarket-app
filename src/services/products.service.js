@@ -88,21 +88,21 @@ export async function getProduct(productId) {
 export async function updateProduct(productId, barcode, name, description, price, provider, category, image) {
     const req = new RequestsHelper(API_URL);
     const response = await req.put(`products/${productId}`, {
-        barcode, name, description, price, provider, category, image
+        barcode, 
+        name, 
+        description, 
+        price: parseFloat(price), 
+        provider, 
+        category, 
+        image
     }, getLoggedUserToken());
     let status = response.statusCode;
     switch(status) {
         case 204:
-            return { result: ProductsServiceResult.Success };
+            return { result: ProductsServiceResult.Success, data: response.data };
 
         case 500:
             return { result: ProductsServiceResult.ServerError };
-        
-        case 400:
-            return { result: ProductsServiceResult.RequestError };
-
-        case 409:
-            return { result: ProductsServiceResult.AlreadyExists };
         
         default:
             return { result: ProductsServiceResult.UnknownError };

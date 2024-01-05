@@ -9,6 +9,7 @@ import RegisterStoreBranch from './pages/RegisterStoreBranch';
 import ModifyStoreBranch from './pages/ModifyStoreBranch';
 import ProductsManagement from './pages/ProductsManagement';
 import RegisterProduct from './pages/RegisterProduct';
+import ModifyProduct from './pages/ModifyProductPage';
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/admin/sucursales/editar/:storeBranchId" element={<ModifyStoreBranch />} />
                     <Route path="/admin/productos" element={<ProductsManagement />} />
                     <Route path="/admin/productos/registrar" element={<RegisterProduct />} />
+                    <Route path="/admin/productos/editar/:productId" element={<ModifyProduct />} />
                 </Routes>
             </BrowserRouter>
         </div>
