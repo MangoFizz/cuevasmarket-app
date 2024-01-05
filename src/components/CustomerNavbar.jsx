@@ -50,6 +50,7 @@ const Navbar = () => {
           />
           <span>Abarrotes Cuevas</span>
         </a>
+        <Cart />
         <button
           className="navbar-toggler"
           type="button"
@@ -74,7 +75,6 @@ const Navbar = () => {
               {loggedUserData.name}
             </span>
           ) : null}
-          <Cart />
           <Button variant="outline-primary" onClick={onLogButton}>
             {loggedIn ? strings.navbar.logout : strings.navbar.login}
           </Button>
