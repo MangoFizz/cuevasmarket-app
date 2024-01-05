@@ -96,19 +96,17 @@ const UserFormCard = ({ userId = null }) => {
             formValid = false;
         }
 
-        // check for a strong password: at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character
-        if(password === "") {
-            setPasswordIsInvalid(true);
-            formValid = false;
-        }
-        else if(!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
-            setPasswordIsInvalid(true);
-            formValid = false;
-        }
+        if(password !== "") {
+            // check for a strong password: at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character
+            if(!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
+                setPasswordIsInvalid(true);
+                formValid = false;
+            }
 
-        if(confirmPassword === "" || confirmPassword !== password) {
-            setConfirmPasswordIsInvalid(true);
-            formValid = false;
+            if(confirmPassword === "" || confirmPassword !== password) {
+                setConfirmPasswordIsInvalid(true);
+                formValid = false;
+            }
         }
 
         // valid types: admin, manager, delivery man
@@ -158,7 +156,8 @@ const UserFormCard = ({ userId = null }) => {
     }
 
     const doUpdateUser = async () => {
-        let updateResult = await updateUser(userId, firstName, surnames, null, username, password, type);
+        let finalPassword = password !== ""  ? password : null;
+        let updateResult = await updateUser(userId, firstName, surnames, null, username, finalPassword, type);
         switch(updateResult.result) {
             case UsersServiceResult.Success: {
                 navigate("/admin/usuarios");
@@ -201,7 +200,7 @@ const UserFormCard = ({ userId = null }) => {
 
                         <Form.Group className="mb-3" controlId="usernameInput">
                             <Form.Label>{strings.registerUser.usernameLabel}</Form.Label>
-                            <Form.Control type="text" placeholder={strings.registerUser.usernamePlaceholder} value={username} onChange={(e) => setUsername(e.target.value)} isInvalid={usernameIsInvalid} />
+                            <Form.Control type="text" placeholder={strings.registerUser.usernamePlaceholder} value={username} onChange={(e) => setUsername(e.target.value)} isInvalid={usernameIsInvalid} disabled={userId !== null} />
                             <Form.Control.Feedback type="invalid">{strings.registerUser.usernameRequired}</Form.Control.Feedback>
                         </Form.Group>
 
@@ -229,7 +228,7 @@ const UserFormCard = ({ userId = null }) => {
 
                         <Form.Group className="mb-3" controlId="typeSelectInput">
                             <Form.Label>{strings.registerUser.typeLabel}</Form.Label>
-                            <Form.Select onChange={(e) => setType(e.target.value)} isInvalid={typeIsInvalid}>
+                            <Form.Select onChange={(e) => setType(e.target.value)} isInvalid={typeIsInvalid} disabled={userId !== null}>
                                 {validUserTypes.map((type) => {
                                     return <option value={type}>{strings.registerUser[type]}</option>
                                 })}

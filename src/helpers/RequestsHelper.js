@@ -28,7 +28,6 @@ export default class RequestsHelper {
     }
 
     async put(endpoint, data, authorizationToken = null) {
-        console.log(JSON.stringify(data));
         const response = await fetch(this.url + endpoint, {
             method: "PUT",
             headers: {

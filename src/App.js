@@ -10,6 +10,7 @@ import ModifyProduct from './pages/ModifyProductPage';
 import UsersManagement from './pages/UsersManagement';
 import './App.css';
 import RegisterUser from './pages/RegisterUser';
+import ModifyUser from './pages/ModifyUser';
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                     <Route path="/admin/productos/editar/:productId" element={<ModifyProduct />} />
                     <Route path="/admin/usuarios" element={<UsersManagement />} />
                     <Route path="/admin/usuarios/registrar" element={<RegisterUser />} />
+                    <Route path="/admin/usuarios/editar/:userId" element={<ModifyUser />} />
                 </Routes>
             </BrowserRouter>
         </div>
