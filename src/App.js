@@ -1,15 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
 import CataloguePage from './pages/CataloguePage';
 import LoginPage from './pages/LoginPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import StoreBranchesManagement from './pages/StoreBranchesManagement';
-import StoreBranchForm from './components/StoreBranchFormCard';
 import RegisterStoreBranch from './pages/RegisterStoreBranch';
 import ModifyStoreBranch from './pages/ModifyStoreBranch';
 import ProductsManagement from './pages/ProductsManagement';
 import RegisterProduct from './pages/RegisterProduct';
 import ModifyProduct from './pages/ModifyProductPage';
+import UsersManagement from './pages/UsersManagement';
+import './App.css';
 
 function App() {
     return (
@@ -24,6 +23,7 @@ function App() {
                     <Route path="/admin/productos" element={<ProductsManagement />} />
                     <Route path="/admin/productos/registrar" element={<RegisterProduct />} />
                     <Route path="/admin/productos/editar/:productId" element={<ModifyProduct />} />
+                    <Route path="/admin/usuarios" element={<UsersManagement />} />
                 </Routes>
             </BrowserRouter>
         </div>

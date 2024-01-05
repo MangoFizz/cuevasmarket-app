@@ -121,6 +121,28 @@ const es = {
             registerButton: "Aceptar",
             cancelButton: "Cancelar",
             imageLabel: "Imagen"
+        },
+
+        usersTableCard: {
+            header: "Usuarios",
+            searchBarPlaceholder: "Buscar usuario...",
+            usernameColumn: "Usuario",
+            firstNameColumn: "Nombre",
+            surnamesColumn: "Apellidos",
+            typeColumn: "Tipo",
+            viewUserDetailsModalTitle: "Detalles del usuario",
+            viewUserDetailsModalUsernameLabel: "Nombre de usuario",
+            viewUserDetailsModalFirstNameLabel: "Nombre",
+            viewUserDetailsModalSurnamesLabel: "Apellidos",
+            viewUserDetailsModalPhoneNumberLabel: "Número de teléfono",
+            viewUserDetailsModalTypeLabel: "Tipo",
+            viewUserDetailsModalPasswordLabel: "Contraseña",
+            modalCloseButton: "Cerrar",
+            deleteUserConfirmationModalHeader: "Eliminar usuario",
+            deleteUserConfirmationModalBody: "¿Está seguro que desea eliminar este usuario?",
+            deleteUserConfirmationModalCancelButton: "Cancelar",
+            deleteUserConfirmationModalDeleteButton: "Eliminar",
+            addUserButton: "Agregar usuario",
         }
     }
 }
