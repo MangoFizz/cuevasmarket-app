@@ -5,9 +5,12 @@ const CartItem = ({ product, removeFromCart }) => {
   if (!product) return null;
 
   return (
-    <div className="card card-body mb-3">
+    <div
+      className="card card-body mb-3"
+      style={{ display: "grid", placeItems: "center" }}
+    >
       <div className="row">
-        <div className="col-md-10">
+        <div className="col-md-12">
           <h4>{product.name}</h4>
           <p>{product.description}</p>
           <p>{product.price}</p>

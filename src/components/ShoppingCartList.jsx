@@ -46,9 +46,15 @@ const ShoppingCartList = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "20px", height: "100vh" }}>
+    <div
+      className="container"
+      style={{
+        marginTop: "20px",
+        height: "100vh",
+      }}
+    >
       <div className="row">
-        <div className="col-md-8">
+        <div className="col-md-12">
           <h3 className="text-center">Artículos en el carrito</h3>
           {Object.values(cart).map((product) => (
             <CartItem
@@ -56,16 +62,13 @@ const ShoppingCartList = () => {
               removeFromCart={removeProductFromCart}
             />
           ))}
-          <button
-            className="btn btn-danger btn-sm float-right"
-            onClick={clearCart}
-          >
+          <button className="btn btn-danger btn-sm" onClick={clearCart}>
             Limpiar carrito
           </button>
         </div>
       </div>
       <div className="row">
-        <div className="col-md-8">
+        <div className="col-md-12">
           <h3 className="text-center">Método de Pago</h3>
           <select className="form-control">
             {paymentMethods.map((paymentMethod) => (
@@ -73,7 +76,7 @@ const ShoppingCartList = () => {
             ))}
           </select>
         </div>
-        <div className="col-md-8">
+        <div className="col-md-12">
           <h3 className="text-center">Dirección de Envío</h3>
           <select className="form-control">
             {shippingAddresses.map((shippingAddress) => (
@@ -81,14 +84,14 @@ const ShoppingCartList = () => {
             ))}
           </select>
         </div>
-        <div className="col-md-8">
+        <div className="col-md-12">
           <button
-            className="btn btn-success btn-sm float-right"
+            className="btn btn-success btn-sm"
             style={{ marginTop: "20px" }}
             onClick={handleCheckout()}
             disabled={!checkCheckoutConditions()}
           >
-            Checkout
+            Comprar ahora
           </button>
         </div>
       </div>
