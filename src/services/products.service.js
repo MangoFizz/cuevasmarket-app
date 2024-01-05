@@ -27,6 +27,22 @@ export async function searchProducts(keyword, maxResults, page) {
     }
 }
 
+export async function searchProductsStock(storeBranchId, keyword, maxResults, page) {
+    const req = new RequestsHelper(API_URL);
+    const response = await req.get(`storebranches/${storeBranchId}/productstock/search/${keyword}?maxResults=${maxResults}&page=${page}`);
+    let status = response.statusCode;
+    switch(status) {
+        case 200:
+            return { result: ProductsServiceResult.Success, data: response.data };
+
+        case 500:
+            return { result: ProductsServiceResult.ServerError };
+        
+        default:
+            return { result: ProductsServiceResult.UnknownError };
+    }
+}
+
 export async function registerProduct(barcode, name, description, price, provider, category, image) {
     const productData = {
         barcode, 
@@ -119,6 +135,27 @@ export async function deleteProduct(productId) {
 
         case 500:
             return { result: ProductsServiceResult.ServerError };
+        
+        default:
+            return { result: ProductsServiceResult.UnknownError };
+    }
+}
+
+export async function addProductStock(productId, storeBranchId, quantity) {
+    const req = new RequestsHelper(API_URL);
+    const response = await req.put(`storebranches/${storeBranchId}/productstock/${productId}`, {
+        quantity: parseInt(quantity)
+    }, getLoggedUserToken());
+    let status = response.statusCode;
+    switch(status) {
+        case 200:
+            return { result: ProductsServiceResult.Success, data: response.data };
+
+        case 500:
+            return { result: ProductsServiceResult.ServerError };
+
+        case 400:
+            return { result: ProductsServiceResult.RequestError, data: response.data };
         
         default:
             return { result: ProductsServiceResult.UnknownError };

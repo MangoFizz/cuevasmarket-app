@@ -205,6 +205,21 @@ const es = {
             unknownError: "Ha ocurrido un error desconocido.",
             alreadyExists: "Ya existe un cliente con ese número de teléfono.",
         },
+
+        managerSidebar: {
+            branchInventory: "Inventario"
+        },
+
+        branchInventoryManagement: {
+            header: "Inventario",
+            searchBarPlaceholder: "Buscar producto...",
+            noResults: "No se encontraron resultados",
+            addProductButton: "Agregar producto",
+            addProductModalHeader: "Agregar producto",
+            amountLabel: "Cantidad",
+            addButton: "Agregar",
+            stockLabel: "Existencia",
+        }
     }
 }
 

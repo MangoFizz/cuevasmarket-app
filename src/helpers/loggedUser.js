@@ -13,6 +13,10 @@ export function isUserLogged() {
     return Cookies.get("user") != null;
 }
 
+export function getLoggedUserStoreBranch() {
+    return getLoggedUser()?.storeBranch;
+}
+
 export function getLoggedUser() {
     let user = Cookies.get("user");
     if (user) {

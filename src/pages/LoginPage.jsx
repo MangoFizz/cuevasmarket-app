@@ -23,7 +23,7 @@ const LoginPage = () => {
                     break;
                 }
                 case "manager": {
-                    navigate("/manager");
+                    navigate("/gerente/inventario");
                     break;
                 }
                 case "admin": {

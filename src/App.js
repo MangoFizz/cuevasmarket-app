@@ -12,6 +12,7 @@ import RegisterUser from './pages/RegisterUser';
 import ModifyUser from './pages/ModifyUser';
 import RegisterCustomer from './pages/RegisterCustomer';
 import './App.css';
+import BranchInventoryManagement from './pages/BranchInventoryManagement';
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                     <Route path="/admin/usuarios" element={<UsersManagement />} />
                     <Route path="/admin/usuarios/registrar" element={<RegisterUser />} />
                     <Route path="/admin/usuarios/editar/:userId" element={<ModifyUser />} />
+                    <Route path="/gerente/inventario" element={<BranchInventoryManagement />} />
                 </Routes>
             </BrowserRouter>
         </div>

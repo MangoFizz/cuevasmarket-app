@@ -5,7 +5,7 @@ import { strings } from "../localization";
 import { getLoggedUser, getLoggedUserName, getLoggedUserType, isUserLogged, setLoggedUser } from '../helpers/loggedUser';
 import { Button } from "react-bootstrap";
 
-const AdminSidebar = () => {
+const ManagerSidebar = () => {
     const [isToggled, setIsToggled] = React.useState(false);
     const [hideLogOutText, setHideLogOutText] = React.useState(false);
     const sidebarRef = useRef();
@@ -19,7 +19,7 @@ const AdminSidebar = () => {
 
     useEffect(() => {
         // check if user type is admin
-        if(!isUserLogged() || getLoggedUserType() !== "admin") {
+        if(!isUserLogged() || getLoggedUserType() !== "manager") {
             navigate("/");
         }
 
@@ -61,19 +61,9 @@ const AdminSidebar = () => {
             </CDBSidebarHeader>
             <CDBSidebarContent>
                 <CDBSidebarMenu>
-                    <NavLink exact to="/admin/sucursales" activeClassName="activeClicked" style={{ color: "inherit" }}>
+                    <NavLink exact to="/gerente/inventario" activeClassName="activeClicked" style={{ color: "inherit" }}>
                         <CDBSidebarMenuItem icon="table">
-                            {strings.adminSidebar.storeBranches}
-                        </CDBSidebarMenuItem>
-                    </NavLink>
-                    <NavLink exact to="/admin/productos" activeClassName="activeClicked" style={{ color: "inherit" }}>
-                        <CDBSidebarMenuItem icon="archive">
-                            {strings.adminSidebar.products}
-                        </CDBSidebarMenuItem>
-                    </NavLink>
-                    <NavLink exact to="/admin/usuarios" activeClassName="activeClicked" style={{ color: "inherit" }}>
-                        <CDBSidebarMenuItem icon="users">
-                            {strings.adminSidebar.users}
+                            {strings.managerSidebar.branchInventory}
                         </CDBSidebarMenuItem>
                     </NavLink>
                 </CDBSidebarMenu>
@@ -89,4 +79,4 @@ const AdminSidebar = () => {
     );
 };
 
-export default AdminSidebar;
+export default ManagerSidebar;
