@@ -9,6 +9,7 @@ import RegisterProduct from './pages/RegisterProduct';
 import ModifyProduct from './pages/ModifyProductPage';
 import UsersManagement from './pages/UsersManagement';
 import './App.css';
+import RegisterUser from './pages/RegisterUser';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/admin/productos/registrar" element={<RegisterProduct />} />
                     <Route path="/admin/productos/editar/:productId" element={<ModifyProduct />} />
                     <Route path="/admin/usuarios" element={<UsersManagement />} />
+                    <Route path="/admin/usuarios/registrar" element={<RegisterUser />} />
                 </Routes>
             </BrowserRouter>
         </div>

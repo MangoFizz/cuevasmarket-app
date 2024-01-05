@@ -41,7 +41,6 @@ const ProductFormCard = ({ productId = null }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("productId: " + productId);
         if(productId !== null) {
             getProduct(productId).then((res) => {
                 let product = res.data;
