@@ -161,3 +161,7 @@ export async function addProductStock(productId, storeBranchId, quantity) {
             return { result: ProductsServiceResult.UnknownError };
     }
 }
+
+export async function getProducts() {
+    return RequestsService.get("products/search/");
+  }

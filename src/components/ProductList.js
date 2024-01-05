@@ -1,6 +1,6 @@
 import React from "react";
 import ProductItem from "./ProductItem";
-import ProductsService from "../services/products.service";
+import ProductsService, { getProducts, searchProducts } from "../services/products.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./ProductStyles.css";
 
@@ -8,9 +8,10 @@ const ProductList = (props) => {
   const [products, setProducts] = React.useState([]);
 
   React.useEffect(() => {
-    ProductsService.getProducts()
+    searchProducts("", 100, 1)
       .then((response) => {
-        setProducts(response.data);
+        console.log(response);
+        setProducts(response.data.results);
       })
       .catch((error) => {
         console.error("Failed to fetch products:", error);
