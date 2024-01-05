@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import CataloguePage from "./pages/CataloguePage";
+import CompletePurchasePage from "./pages/CompletePurchasePage";
 import LoginPage from "./pages/LoginPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import StoreBranchesManagement from "./pages/StoreBranchesManagement";
@@ -15,6 +16,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<CataloguePage />} />
+            <Route path="/cart" element={<CompletePurchasePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route
               path="/admin/sucursales"
