@@ -32,7 +32,6 @@ const RegisterCustomerForm = ({ onSuccessCallback, onCancelCallback }) => {
         setConfirmPasswordIsInvalid(false);
         
         if(firstName === "") {
-            setFormError(strings.registerCustomer.firstNameRequired);
             setFirstNameIsInvalid(true);
             formValid = false;
         }
@@ -43,7 +42,6 @@ const RegisterCustomerForm = ({ onSuccessCallback, onCancelCallback }) => {
         }
 
         if(surnames === "") {
-            setFormError(strings.registerCustomer.surnamesRequired);
             setSurnamesIsInvalid(true);
             formValid = false;
         }
@@ -54,7 +52,6 @@ const RegisterCustomerForm = ({ onSuccessCallback, onCancelCallback }) => {
         }
 
         if(phoneNumber === "") {
-            setFormError(strings.registerCustomer.phoneNumberRequired);
             setPhoneNumberIsInvalid(true);
             formValid = false;
         }

@@ -34,3 +34,22 @@
     margin-top: 0.4rem;
     margin-right: 12px;
 }
+
+@media screen and (max-width: 1056px) {
+    .mainContainer .content {
+        width: 90% !important;
+    }
+
+    .branchLocationMap {
+        display: none;
+    }
+
+    .store-branches-options-bar {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .store-branches-options-bar .search-bar {
+        margin-bottom: 12px;
+    }
+}

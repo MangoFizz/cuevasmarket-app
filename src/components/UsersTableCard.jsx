@@ -30,6 +30,10 @@ const UsersTableCard = () => {
             switch(r.result) {
                 case UsersServiceResult.Success: {
                     let responseData = r.data;
+
+                    // remove users of type "customer" from the list jijiji
+                    responseData.results = responseData.results.filter(user => user.type !== "customer");
+
                     setUsers(responseData.results);
                     setCurrentPage(responseData.currentPage);
                     setTotalPages(responseData.totalPages);
@@ -127,15 +131,21 @@ const UsersTableCard = () => {
                             },
                             {
                                 dataField: "firstName",
-                                text: strings.usersTableCard.firstNameColumn
+                                text: strings.usersTableCard.firstNameColumn,
+                                classes: "hide-on-md",
+                                headerClasses: "hide-on-md"
                             },
                             {
                                 dataField: "surnames",
-                                text: strings.usersTableCard.surnamesColumn
+                                text: strings.usersTableCard.surnamesColumn,
+                                classes: "hide-on-md",
+                                headerClasses: "hide-on-md"
                             },
                             {
                                 dataField: "type",
-                                text: strings.usersTableCard.typeColumn
+                                text: strings.usersTableCard.typeColumn,
+                                classes: "hide-on-md",
+                                headerClasses: "hide-on-md"
                             },
                             {
                                 dataField: "options",

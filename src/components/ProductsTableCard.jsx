@@ -123,7 +123,9 @@ const ProductsTableCard = () => {
                         columns={[
                             {
                                 dataField: "barcode",
-                                text: strings.productsTableCard.barcodeColumn
+                                text: strings.productsTableCard.barcodeColumn,
+                                classes: "hide-on-md",
+                                headerClasses: "hide-on-md"
                             },
                             {
                                 dataField: "name",
@@ -134,11 +136,15 @@ const ProductsTableCard = () => {
                                 text: strings.productsTableCard.priceColumn,
                                 formatter: (cell, row) => {
                                     return `$ ${cell.toFixed(2)}`;
-                                }
+                                },
+                                classes: "hide-on-md",
+                                headerClasses: "hide-on-md"
                             },
                             {
                                 dataField: "provider",
-                                text: strings.productsTableCard.providerColumn
+                                text: strings.productsTableCard.providerColumn,
+                                classes: "hide-on-md",
+                                headerClasses: "hide-on-md"
                             },
                             {
                                 dataField: "options",
