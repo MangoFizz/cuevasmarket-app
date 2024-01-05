@@ -185,7 +185,7 @@ const UserFormCard = ({ userId = null }) => {
                     <h5>{userId === null ? strings.registerUser.header : strings.registerUser.altHeader}</h5>
                 </Card.Header>
                 <Card.Body>
-                    <Form>
+                    <Form autocomplete="off"    >
                         <Form.Group className="mb-3" controlId="firstNameInput">
                             <Form.Label>{strings.registerUser.firstNameLabel}</Form.Label>
                             <Form.Control type="text" placeholder={strings.registerUser.firstNamePlaceholder} value={firstName} onChange={(e) => setFirstName(e.target.value)} isInvalid={firstNameIsInvalid} />
@@ -194,20 +194,20 @@ const UserFormCard = ({ userId = null }) => {
 
                         <Form.Group className="mb-3" controlId="surnamesInput">
                             <Form.Label>{strings.registerUser.surnamesLabel}</Form.Label>
-                            <Form.Control type="text" placeholder={strings.registerUser.surnamesPlaceholder} value={surnames} onChange={(e) => setSurnames(e.target.value)} isInvalid={surnamesIsInvalid} />
+                            <Form.Control type="text" placeholder={strings.registerUser.surnamesPlaceholder} value={surnames} onChange={(e) => setSurnames(e.target.value)} isInvalid={surnamesIsInvalid} autocomplete="off" />
                             <Form.Control.Feedback type="invalid">{strings.registerUser.surnamesRequired}</Form.Control.Feedback>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="usernameInput">
                             <Form.Label>{strings.registerUser.usernameLabel}</Form.Label>
-                            <Form.Control type="text" placeholder={strings.registerUser.usernamePlaceholder} value={username} onChange={(e) => setUsername(e.target.value)} isInvalid={usernameIsInvalid} disabled={userId !== null} />
+                            <Form.Control type="text" placeholder={strings.registerUser.usernamePlaceholder} value={username} onChange={(e) => setUsername(e.target.value)} isInvalid={usernameIsInvalid} disabled={userId !== null} autocomplete="off"  />
                             <Form.Control.Feedback type="invalid">{strings.registerUser.usernameRequired}</Form.Control.Feedback>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="passwordInput">
                             <Form.Label>{strings.registerUser.passwordLabel}</Form.Label>
                             <InputGroup>
-                                <Form.Control type={passwordVisible ? "text" : "password"} placeholder={strings.registerUser.passwordPlaceholder} value={password} onChange={(e) => setPassword(e.target.value)} isInvalid={passwordIsInvalid} />
+                                <Form.Control type={passwordVisible ? "text" : "password"} placeholder={strings.registerUser.passwordPlaceholder} value={password} onChange={(e) => setPassword(e.target.value)} isInvalid={passwordIsInvalid} autocomplete="off" autocomplete="new-password" />
                                 <span className="input-group-text" onClick={() => setPasswordVisible(!passwordVisible)} style={{cursor: "pointer"}}>
                                     <i className={!passwordVisible ? "bi bi-eye" : "bi bi-eye-slash"} id="togglePassword"></i>
                                 </span>
