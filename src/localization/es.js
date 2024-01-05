@@ -175,6 +175,8 @@ const es = {
             "admin": "Administrador",
             "manager": "Gerente de ventas",
             "delivery man": "Repartidor",
+            storeBranchLabel: "Sucursal",
+            storeBranchRequired: "Por favor, seleccione una sucursal.",
         },
 
         registerCustomer: {

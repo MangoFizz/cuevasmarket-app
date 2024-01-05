@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { strings } from "../localization";
 import { Button, Card, Form, InputGroup } from "react-bootstrap";
-import { StoreBranchesSearchResult, getStoreBranch, registerStoreBranch, updateStoreBranch } from "../services/storebranches.service";
+import { StoreBranchesSearchResult, getAllStoreBranches, getStoreBranch, registerStoreBranch, updateStoreBranch } from "../services/storebranches.service";
 import { UsersServiceResult, getUser, registerUser, updateUser } from "../services/users.service";
 import "./UserFormCard.css";
 
@@ -25,9 +25,12 @@ const UserFormCard = ({ userId = null }) => {
     const [confirmPasswordIsInvalid, setConfirmPasswordIsInvalid] = useState(false);
     const [type, setType] = useState("admin");
     const [typeIsInvalid, setTypeIsInvalid] = useState(false);
+    const [storeBranch, setStoreBranch] = useState(null);
+    const [storeBranchIsInvalid, setStoreBranchIsInvalid] = useState(false);
     const [formError, setFormError] = useState("")
     const [passwordVisible, setPasswordVisible] = useState(false)
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false)
+    const [storeBranches, setStoreBranches] = useState([]);
 
     const navigate = useNavigate();
 
@@ -58,6 +61,27 @@ const UserFormCard = ({ userId = null }) => {
                 }
             });
         }
+
+        getAllStoreBranches().then((res) => {
+            let branches = res.data;
+            switch(res.result) {
+                case StoreBranchesSearchResult.Success: {
+                    setStoreBranches(branches);
+                    break;
+                }
+                
+                case StoreBranchesSearchResult.RequestError: {
+                    setFormError(strings.registerUser.requestError);
+                    console.log(branches.data);
+                    break;
+                }
+
+                default: {
+                    setFormError(strings.registerUser.unknownError);
+                    break;
+                }
+            }
+        });
     }, []);
 
     const handleRegisterButton = () => {
@@ -115,6 +139,16 @@ const UserFormCard = ({ userId = null }) => {
             formValid = false;
         }
 
+        if(type == "manager") {
+            if(storeBranch === null) {
+                setStoreBranchIsInvalid(true);
+                formValid = false;
+            }
+        }
+        else {
+            setStoreBranch(null);
+        }
+
         if(formValid) {
             if(userId === null) {
                 doRegisterUser();
@@ -130,7 +164,7 @@ const UserFormCard = ({ userId = null }) => {
     }
 
     const doRegisterUser = async () => {
-        let registerResult = await registerUser(firstName, surnames, null, username, password, type);
+        let registerResult = await registerUser(firstName, surnames, null, username, password, type, storeBranch);
         switch(registerResult.result) {
             case UsersServiceResult.Success: {
                 navigate("/admin/usuarios");
@@ -234,6 +268,16 @@ const UserFormCard = ({ userId = null }) => {
                                 })}
                             </Form.Select>
                             <Form.Control.Feedback type="invalid">{strings.registerUser.categoryRequired}</Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="storeBranchSelectInput" style={{ display: (type == "manager" ? "block" : "none") }}>
+                            <Form.Label>{strings.registerUser.storeBranchLabel}</Form.Label>
+                            <Form.Select onChange={(e) => setStoreBranch(e.target.value)} isInvalid={storeBranchIsInvalid} disabled={userId !== null}>
+                                {storeBranches.map((branch) => {
+                                    return <option value={branch.id}>{branch.name}</option>
+                                })}
+                            </Form.Select>
+                            <Form.Control.Feedback type="invalid">{strings.registerUser.storeBranchRequired}</Form.Control.Feedback>
                         </Form.Group>
                     </Form>
                     <div className="form-error flex-grow-1" >{formError}</div>

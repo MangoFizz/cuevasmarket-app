@@ -118,3 +118,19 @@ export async function deleteStoreBranch(storeBranchId) {
             return { result: StoreBranchesSearchResult.UnknownError };
     }
 }
+
+export async function getAllStoreBranches() {
+    const req = new RequestsHelper(API_URL);
+    const response = await req.get("storebranches");
+    let status = response.statusCode;
+    switch(status) {
+        case 200:
+            return { result: StoreBranchesSearchResult.Success, data: response.data };
+
+        case 500:
+            return { result: StoreBranchesSearchResult.ServerError };
+        
+        default:
+            return { result: StoreBranchesSearchResult.UnknownError };
+    }
+}

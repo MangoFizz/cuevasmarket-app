@@ -42,9 +42,9 @@ export async function getUser(userId) {
     }
 }
 
-export async function registerUser(firstName, surnames, phoneNumber, username, password, type) {
+export async function registerUser(firstName, surnames, phoneNumber, username, password, type, storeBranchId = null) {
     const req = new RequestsHelper(API_URL);
-    const response = await req.post(`users`, { firstName, surnames, phoneNumber, username, password, type }, getLoggedUserToken());
+    const response = await req.post(`users`, { firstName, surnames, phoneNumber, username, password, type, storeBranchId }, getLoggedUserToken());
     let status = response.statusCode;
     switch(status) {
         case 201:
