@@ -11,7 +11,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const ShoppingCartList = () => {
-  const { cart, setCart, removeProductFromCart } = useContext(CartContext);
+  const { cart, removeProductFromCart } = useContext(CartContext);
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [shippingAddresses, setShippingAddresses] = useState([]);
 
@@ -28,7 +28,7 @@ const ShoppingCartList = () => {
 
   const checkCheckoutConditions = () => {
     const cartItems = Object.values(cart);
-    if (cartItems.length == 0) {
+    if (cartItems.length === 0) {
       return false;
     } else {
       for (let i = 0; i < cartItems.length; i++) {
@@ -68,7 +68,7 @@ const ShoppingCartList = () => {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-12">
+        <div className="col-md-12" style={{ marginTop: "40px" }}>
           <h3 className="text-center">Método de Pago</h3>
           <select className="form-control">
             {paymentMethods.map((paymentMethod) => (
@@ -76,7 +76,7 @@ const ShoppingCartList = () => {
             ))}
           </select>
         </div>
-        <div className="col-md-12">
+        <div className="col-md-12" style={{ marginTop: "20px" }}>
           <h3 className="text-center">Dirección de Envío</h3>
           <select className="form-control">
             {shippingAddresses.map((shippingAddress) => (

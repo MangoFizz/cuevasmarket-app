@@ -13,8 +13,8 @@ const CartItem = ({ product, removeFromCart }) => {
         <div className="col-md-12">
           <h4>{product.name}</h4>
           <p>{product.description}</p>
-          <p>{product.price}</p>
-          <p>{product.quantity}</p>
+          <p>Precio: ${product.price} MXN</p>
+          <p>Cantidad: {product.quantity || 1}</p>
           <button
             className="btn btn-danger btn-sm float-right"
             onClick={() => removeFromCart(product.id)}

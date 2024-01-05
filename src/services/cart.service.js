@@ -30,7 +30,12 @@ export function checkout(cart, paymentMethod, shippingAddress) {
     userId: getLoggedUser().id,
     paymentMethod: paymentMethod,
     shippingAddress: shippingAddress,
-    products: cart,
+    orderItems: Object.values(cart).map((product) => {
+      return {
+        productId: product.id,
+        quantity: product.quantity || 1,
+      };
+    }),
   };
   RequestService.post(`orders/`, order).then((response) => {
     return response.data;

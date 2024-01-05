@@ -9,6 +9,10 @@ export const CartProvider = ({ children }) => {
   });
 
   const addProductToCart = (product) => {
+    if (cart[product.id]) {
+      updateQuantity(product.id, "increase");
+      return;
+    }
     setCart((prevCart) => {
       const updatedCart = { ...prevCart, [product.id]: product };
       localStorage.setItem("cart", JSON.stringify(updatedCart));
@@ -30,15 +34,16 @@ export const CartProvider = ({ children }) => {
       const updatedCart = { ...prevCart };
       if (updatedCart[productId]) {
         if (operation === "increase") {
-          updatedCart[productId] = {
-            ...updatedCart[productId],
-            quantity: updatedCart[productId].quantity + 1,
-          };
+          if (!updatedCart[productId].quantity) {
+            updatedCart[productId].quantity = 2;
+          } else {
+            updatedCart[productId].quantity++;
+          }
         } else {
-          updatedCart[productId] = {
-            ...updatedCart[productId],
-            quantity: updatedCart[productId].quantity - 1,
-          };
+          updatedCart[productId].quantity--;
+          if (updatedCart[productId].quantity <= 0) {
+            delete updatedCart[productId];
+          }
         }
       }
       localStorage.setItem("cart", JSON.stringify(updatedCart));
