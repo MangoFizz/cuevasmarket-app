@@ -9,6 +9,17 @@ export default class RequestsService {
     return data;
   }
 
+  static async getAuth(endpoint) {
+    const response = await fetch(API_URL + endpoint, {
+      method: "GET",
+      headers: {
+        Authorization: getLoggedUserToken(),
+      },
+    });
+    const data = await response.json();
+    return data;
+  }
+
   static async post(request, endpoint) {
     const response = await fetch(API_URL + endpoint, {
       method: "POST",

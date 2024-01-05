@@ -16,6 +16,10 @@ const ShoppingCartList = () => {
   const [shippingAddresses, setShippingAddresses] = useState([]);
 
   useEffect(() => {
+    console.log(getLoggedUser());
+    if (getLoggedUser() === null) {
+      window.location.href = "/login";
+    }
     getPaymentMethods().then(setPaymentMethods);
     getShippingAddresses().then(setShippingAddresses);
   }, []);
@@ -27,21 +31,30 @@ const ShoppingCartList = () => {
   };
 
   const checkCheckoutConditions = () => {
-    const cartItems = Object.values(cart);
-    if (cartItems.length === 0) {
+    if (Object.values(cart).length === 0) {
       return false;
-    } else {
-      for (let i = 0; i < cartItems.length; i++) {
-        if (!checkProductStock(cartItems[i])) {
-          return false;
-        }
-      }
+      //} else {
+      //    for (let i = 0; i < cartItems.length; i++) {
+      //  if (!checkProductStock(cartItems[i])) {
+      //    return false;
+      //  }
+      //}
     }
+
+    if (paymentMethods.length === 0) {
+      return false;
+    }
+
+    if (shippingAddresses.length === 0) {
+      return false;
+    }
+
+    return true;
   };
 
-  const handleCheckout = (paymentMethod, shippingAddress) => {
+  const handleCheckout = () => {
     if (checkCheckoutConditions()) {
-      checkout(cart, paymentMethod, shippingAddress);
+      checkout(cart, paymentMethods[0].id, shippingAddresses[0].id);
     }
   };
 
@@ -72,7 +85,9 @@ const ShoppingCartList = () => {
           <h3 className="text-center">Método de Pago</h3>
           <select className="form-control">
             {paymentMethods.map((paymentMethod) => (
-              <option>{paymentMethod.cardNumber}</option>
+              <option value={paymentMethod.id}>
+                {paymentMethod.cardNumber}
+              </option>
             ))}
           </select>
         </div>
@@ -80,7 +95,9 @@ const ShoppingCartList = () => {
           <h3 className="text-center">Dirección de Envío</h3>
           <select className="form-control">
             {shippingAddresses.map((shippingAddress) => (
-              <option>{shippingAddress.streetName}</option>
+              <option value={shippingAddress.id}>
+                {shippingAddress.streetAddress}
+              </option>
             ))}
           </select>
         </div>
@@ -88,7 +105,7 @@ const ShoppingCartList = () => {
           <button
             className="btn btn-success btn-sm"
             style={{ marginTop: "20px" }}
-            onClick={handleCheckout()}
+            onClick={handleCheckout}
             disabled={!checkCheckoutConditions()}
           >
             Comprar ahora

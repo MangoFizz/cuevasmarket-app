@@ -10,7 +10,7 @@ export function checkProductStock(product) {
 }
 
 export function getPaymentMethods() {
-  return RequestService.get(
+  return RequestService.getAuth(
     `users/` + getLoggedUser().id + `/paymentmethods/`,
   ).then((response) => {
     return response.data || [];
@@ -18,18 +18,18 @@ export function getPaymentMethods() {
 }
 
 export function getShippingAddresses() {
-  return RequestService.get(
+  return RequestService.getAuth(
     `users/` + getLoggedUser().id + `/shippingaddresses/`,
   ).then((response) => {
     return response.data || [];
   });
 }
 
-export function checkout(cart, paymentMethod, shippingAddress) {
+export function checkout(cart, paymentMethodId, shippingAddressId) {
   let order = {
     userId: getLoggedUser().id,
-    paymentMethod: paymentMethod,
-    shippingAddress: shippingAddress,
+    paymentMethodId: paymentMethodId,
+    shippingAddressId: shippingAddressId,
     orderItems: Object.values(cart).map((product) => {
       return {
         productId: product.id,
@@ -37,7 +37,7 @@ export function checkout(cart, paymentMethod, shippingAddress) {
       };
     }),
   };
-  RequestService.post(`orders/`, order).then((response) => {
+  RequestService.post(order, `orders`).then((response) => {
     return response.data;
   });
 }
